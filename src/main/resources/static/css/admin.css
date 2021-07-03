@@ -1,0 +1,190 @@
+body{
+    /* background: #599fd9; */
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.vertical-nav{
+    background-color: #c9c4c4;
+    /* min-width: 20rem;
+    width: 20rem; */
+    min-width: 20vw;
+    width: 20vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+    transition: all 0.4s;
+}
+
+.page-content{
+    /* background-image: linear-gradient(135.9deg, rgba(109,25,252,1) 16.4%, rgba(125,31,10,1) 56.1%); */
+    /* width: calc(100% - 20rem); */
+    width: calc(100% - 20vw);
+    /* margin-left: 20rem; */
+    margin-left: 20vw;
+    transition: all 0.4s;
+}
+
+#sidebar.active{
+    /* margin-left: -17rem; */
+    margin-left: -20vw;
+}
+
+#content.active{
+    width: 100%;
+    margin: 0;
+}
+
+.separator{
+    margin: 3rem 0;
+    border-bottom: 1px dashed #fff;
+}
+
+.nav-item, #closeOrderDetailsDivOrderList{
+    cursor: pointer;
+}
+
+.add_inventory{
+    /*max-height: 100vh;
+    height: 100vh;
+   	overflow: hidden;*/
+   	display: none;
+}
+
+.add_inventory.show{
+	display: block;
+}
+
+.add_category{
+	max-height: 100vh;
+    height: 100vh;
+   	overflow: hidden;
+   	display: none;
+}
+
+.add_category.show{
+	display: block;
+}
+
+.add_order{
+	/*max-height: 100vh;
+    height: 100vh;*/
+   	/*overflow: hidden;*/
+   	display: none;
+}
+
+.add_order.show{
+	display: block;
+}
+
+.watch_inventory{
+	max-height: 100vh;
+    height: 100vh;
+   	overflow: hidden;
+   	display: none;
+}
+
+.watch_inventory.show{
+	display: block;
+}
+
+.order_list{
+	max-height: 100vh;
+    height: 100vh;
+   	overflow: hidden;
+   	display: none;
+}
+
+.order_list.show{
+	display: block;
+}
+
+.expense{
+	max-height: 100vh;
+    height: 100vh;
+   	overflow: hidden;
+   	display: none;
+}
+
+.expense.show{
+	display: block;
+}
+
+.img-thumbnail{
+    height: 100px;
+    width: 100px;
+}
+
+.add-order-table-scrollbar {
+	position: relative;
+	height: 200px;
+	overflow: auto;
+}
+
+.watch-inventory-table-scrollbar{
+	position: relative;
+	height: 90vh;
+	overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+	display: block;
+}
+
+#inventoryProductSizeAddDiv{
+	opacity: 0;
+	transition: 1s;
+}
+
+#inventoryProductSizeAddDiv.show{
+	opacity: 1;
+	transition: 1s;
+}
+
+#inventoryProductSizeAddButton{
+	opacity: 1;
+	transition: 1s;
+}
+
+#inventoryProductSizeAddButton.hide{
+	opacity: 0;
+	transition: 1s;
+}
+
+#successDiv, #failDiv, #duplicateEntryDiv{
+	position: fixed;
+	bottom: 0;
+	right: 5%;
+	transform: translateY(20vh);
+	transition: 1s;
+}
+
+#successClose, #failClose, #duplicateEntryClose{
+	cursor: pointer;
+}
+
+#successDiv.show, #failDiv.show, #duplicateEntryDiv.show{
+	transform: translatey(0);
+	transition: 1s;
+}
+
+#orderDetailsDivOrderList{
+	position: fixed;
+	top: 20vh;
+	left: 20vw;
+	height: 60vh;
+	width: 60vw;
+	background-color: aliceblue;
+	visibility: hidden;
+}
+
+#orderDetailsDivOrderList.show{
+	visibility: visible;
+}
+
+#orderList.blur{
+	filter: blur(50px);
+	pointer-events: none;
+}

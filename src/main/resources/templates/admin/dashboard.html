@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset='UTF-8'>
+	<link rel="stylesheet" th:href="@{/css/admin.css}">
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+	<!-- <link rel="shortcut icon" th:href="@{/favicon/favicon_suchi_shoili_logo.png}" /> -->
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+		integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+	<title>
+		ShuchiShoili Boss
+	</title>
+</head>
+
+<body>
+	<div class="vertical-nav bg-white" id="sidebar">
+		<div class="py-4 px-3 mb-4 bg-light">
+			<div class="media d-flex align-items-center">
+				<img th:src="@{'/images/favicon/favicon_suchi_shoili_logo.png'}" alt="..." width="80" height="80"
+					class="mr-3 rounded-circle img-thumbnail shadow-sm">
+				<div class="media-body">
+					<h4 class="m-0">Akif</h4>
+					<p class="font-weight-normal text-muted mb-0">Web Developer</p>
+				</div>
+			</div>
+		</div>
+		<p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Dashboard</p>
+		<ul class="nav flex-column bg-white mb-0">
+			<li class="nav-item">
+				<a class="nav-link text-dark text-uppercase bg-light" id="sidebar_add_order">
+					<i class="fas fa-shopping-basket mr-3 text-primary fa-fw"></i>
+					Add Order
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-dark text-uppercase bg-light" id="sidebar_order_list">
+					<i class="fas fa-store mr-3 text-primary fa-fw"></i>
+					Order List
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-dark text-uppercase bg-light" id="sidebar_add_inventory">
+					<i class="fas fa-truck-loading mr-3 text-primary fa-fw"></i>
+					Add Inventory
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-dark text-uppercase bg-light" id="sidebar_inventory_list">
+					<i class="fas fa-warehouse mr-3 text-primary fa-fw"></i>
+					Watch Inventory
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-dark text-uppercase bg-light" id="sidebar_expense">
+					<i class="fas fa-warehouse mr-3 text-primary fa-fw"></i>
+					Expense
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-dark text-uppercase bg-light" id="sidebar_add_category">
+					<i class="fas fa-shopping-basket mr-3 text-primary fa-fw"></i>
+					Add Category
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="page-content p-2" id="content">
+		<div class="add_inventory">
+			<div class="col-md-12 col-lg-12">
+				<h2>Add Inventory</h2>
+			</div>
+			<!--<div class="col-md-12 col-lg-12">
+				<form th:action="@{/addProduct}" method="post" th:object="${product}" id="add_inventory_form">
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label for="productCategory">Category</label>
+								<select class="form-control" th:field="*{productCategory}" id="productCategory">
+									<option th:each="products_category : ${categoryList}"
+										th:value="${products_category.id}" th:text="${products_category.category}">
+									</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="productName">Name</label>
+								<input type="text" class="form-control" th:field="*{name}" id="productName"
+									placeholder="Enter a name">
+							</div>
+							<div class="form-group">
+								<label for="productDescription">Description</label>
+								<textarea class="form-control" th:field="*{description}" id="productDescription"
+									rows="3" placeholder="Description"></textarea>
+							</div>
+							<div class="form-group">
+								<label for="productSize">Size</label>
+								<input type="text" class="form-control" th:field="*{size}" id="productSize"
+									placeholder="Size">
+							</div>
+							<div class="form-group">
+								<label for="productPrize">Prize</label>
+								<input type="number" class="form-control" th:field="*{prize}" id="productPrize">
+							</div>
+							<div class="form-group">
+								<label for="productQuantity">Quantity</label>
+								<input type="number" class="form-control" th:field="*{quantity}" id="productQuantity">
+							</div>
+						</div>
+						<div class="col-lg-8">
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="productViewImage1">Product View Image 1</label>
+										<input type="file" class="form-control-file" id="productViewImage1">
+										<img th:src="@{'/images/FC/FC1.jpg'}" alt="..." class="img-thumbnail">
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="productViewImage2">Product View Image 2</label>
+										<input type="file" class="form-control-file" id="productViewImage2">
+										<img th:src="@{'/images/FC/FC2.jpg'}" alt="..." class="img-thumbnail">
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="productDetailsImage1">Product Details Image 1</label>
+										<input type="file" class="form-control-file" id="productDetailsImage1">
+										<img th:src="@{'/images/FC/FC3.jpg'}" alt="..." class="img-thumbnail">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="productViewImage1">Product View Image 1</label>
+										<input type="file" class="form-control-file" id="productViewImage1">
+										<img th:src="@{'/images/FC/FC1.jpg'}" alt="..." class="img-thumbnail">
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="productViewImage2">Product View Image 2</label>
+										<input type="file" class="form-control-file" id="productViewImage2">
+										<img th:src="@{'/images/FC/FC2.jpg'}" alt="..." class="img-thumbnail">
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="productDetailsImage1">Product Details Image 1</label>
+										<input type="file" class="form-control-file" id="productDetailsImage1">
+										<img th:src="@{'/images/FC/FC3.jpg'}" alt="..." class="img-thumbnail">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="productViewImage1">Product View Image 1</label>
+										<input type="file" class="form-control-file" id="productViewImage1">
+										<img th:src="@{'/images/FC/FC1.jpg'}" alt="..." class="img-thumbnail">
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="productViewImage2">Product View Image 2</label>
+										<input type="file" class="form-control-file" id="productViewImage2">
+										<img th:src="@{'/images/FC/FC2.jpg'}" alt="..." class="img-thumbnail">
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="productDetailsImage1">Product Details Image 1</label>
+										<input type="file" class="form-control-file" id="productDetailsImage1">
+										<img th:src="@{'/images/FC/FC3.jpg'}" alt="..." class="img-thumbnail">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12 col-lg-12 d-flex justify-content-center">
+						<button type="submit" class="btn btn-primary" id="add_inventory_submit">Submit</button>
+					</div>
+				</form>
+			</div>-->
+		</div>
+		<div class="add_order show">
+			<div class="col-md-12 col-lg-12">
+				<h2>Add Order</h2>
+			</div>
+			<div class="col-md-12 col-lg-12">
+				<div class="row">
+					<div class="col-md-6 col-lg-6 bg-warning m-3">
+						<div class="row d-flex justify-content-center text-white">
+							<h5>Customer Details</h5>
+						</div>
+						<div class="row p-2 text-white">
+							<div class="form-group col-md-6 col-lg-6">
+								<label for="add_order_customer_name">Customer Name</label>
+								<input type="text" class="form-control" id="add_order_customer_name"
+									placeholder="Customer Name">
+							</div>
+							<div class="form-group col-md-6 col-lg-6">
+								<label for="add_order_customer_phone_no">Customer Phone No.</label>
+								<input type="text" class="form-control" id="add_order_customer_phone_no"
+									placeholder="Customer Phone No.">
+							</div>
+						</div>
+						<div class="row p-2 text-white">
+							<div class="form-group col-md-12 col-lg-12">
+								<label for="add_order_customer_location">Location</label>
+								<select class="form-control" id="add_order_customer_location">
+									<option>Inside Dhaka</option>
+									<option>Outside Dhaka</option>
+								</select>
+							</div>
+						</div>
+						<div class="row p-2 text-white">
+							<div class="form-group col-md-12 col-lg-12">
+								<label for="add_order_customer_address">Address</label>
+								<textarea class="form-control" id="add_order_customer_address" rows="2"
+									placeholder="Address"></textarea>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-5 col-lg-5 bg-secondary m-3">
+						<div class="row justify-content-center text-white">
+							<h5>Products</h5>
+						</div>
+						<div class="row p-2 text-white">
+							<div class="col-md-4 col-lg-4">
+								<div class="form-group">
+									<label for="add_order_product_category">Category</label>
+									<select class="form-control" id="add_order_product_category">
+										<option>Bag</option>
+										<option>Dress</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-8 col-lg-8">
+								<div class="form-group">
+									<label for="add_order_product_name">Product Name</label>
+									<select class="form-control" id="add_order_product_name">
+										<option>Product1</option>
+										<option>Product2</option>
+										<option>Product3</option>
+										<option>Product4</option>
+										<option>Product5</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row p-2 text-white">
+							<div class="col-md-6 col-lg-6">
+								<div class="form-group">
+									<label for="add_order_product_quantity">Quantity</label>
+									<input type="number" class="form-control" id="add_order_product_quantity"
+										placeholder="Quantity">
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="form-group">
+									<label for="add_order_product_discount">Discount</label>
+									<input type="number" class="form-control" id="add_order_product_discount"
+										placeholder="Discount">
+								</div>
+							</div>
+						</div>
+						<div class="row justify-content-center text-white">
+							<h5>Payments</h5>
+						</div>
+						<div class="row p-2 text-white">
+							<div class="form-group col-md-6 col-lg-6">
+								<label for="add_order_payment_status">Payment Status</label>
+								<select class="form-control" id="add_order_payment_status">
+									<option>Paid</option>
+									<option>Unpaid</option>
+								</select>
+							</div>
+							<div class="form-group col-md-6 col-lg-6">
+								<label for="add_order_payment_method">Payment Method</label>
+								<select class="form-control" id="add_order_payment_method">
+									<option>Bkash</option>
+									<option>Nagad</option>
+									<option>Card Payment</option>
+									<option>Cash On Delivery</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-12">
+				<div class="row">
+					<div class="col-md-9 col-lg-9 m-3 table-wrapper-scroll-y add-order-table-scrollbar">
+						<table class="table table-hover table-dark">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Product</th>
+									<th scope="col">Quantity</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">1</th>
+									<td>Product1</td>
+									<td>3</td>
+									<td><button type="button" class="btn btn-danger">Remove</button>
+										<button type="button" class="btn btn-warning">Edit</button>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">2</th>
+									<td>Product1</td>
+									<td>3</td>
+									<td><button type="button" class="btn btn-danger">Remove</button>
+										<button type="button" class="btn btn-warning">Edit</button>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">3</th>
+									<td>Product1</td>
+									<td>3</td>
+									<td><button type="button" class="btn btn-danger">Remove</button>
+										<button type="button" class="btn btn-warning">Edit</button>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">4</th>
+									<td>Product1</td>
+									<td>3</td>
+									<td><button type="button" class="btn btn-danger">Remove</button>
+										<button type="button" class="btn btn-warning">Edit</button>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">5</th>
+									<td>Product1</td>
+									<td>3</td>
+									<td><button type="button" class="btn btn-danger">Remove</button>
+										<button type="button" class="btn btn-warning">Edit</button>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">6</th>
+									<td>Product1</td>
+									<td>3</td>
+									<td><button type="button" class="btn btn-danger">Remove</button>
+										<button type="button" class="btn btn-warning">Edit</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col-md-2 col-lg-2 m-3">
+						<div class="row form-group">
+							<label for="add_order_from">Order From</label>
+							<select class="form-control" id="add_order_from">
+								<option selected>Website</option>
+								<option>Facebook</option>
+								<option>Instagram</option>
+								<option>On Person</option>
+							</select>
+						</div>
+						<div class="row">
+							<button type="button" class="col-md-11 col-lg-11 btn btn-success m-2">Add</button>
+						</div>
+						<div class="row d-flex justify-content-center text-danger">
+							<h3>Total Price</h3>
+						</div>
+						<div class="row d-flex justify-content-center text-muted">
+							<h3>12,000/=</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="watch_inventory">
+			<div class="col-md-12 col-lg-12">
+				<h2>Watch Inventory</h2>
+			</div>
+			<div class="col-md-12 col-lg-12 table-wrapper-scroll-y watch-inventory-table-scrollbar">
+				<table class="table table-hover table-dark">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Product</th>
+							<th scope="col">Quantity</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>Product1</td>
+							<td>3</td>
+							<td><button type="button" class="btn btn-danger">Remove</button>
+								<button type="button" class="btn btn-warning">Edit</button>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td>Product1</td>
+							<td>3</td>
+							<td><button type="button" class="btn btn-danger">Remove</button>
+								<button type="button" class="btn btn-warning">Edit</button>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td>Product1</td>
+							<td>3</td>
+							<td><button type="button" class="btn btn-danger">Remove</button>
+								<button type="button" class="btn btn-warning">Edit</button>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">4</th>
+							<td>Product1</td>
+							<td>3</td>
+							<td><button type="button" class="btn btn-danger">Remove</button>
+								<button type="button" class="btn btn-warning">Edit</button>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">5</th>
+							<td>Product1</td>
+							<td>3</td>
+							<td><button type="button" class="btn btn-danger">Remove</button>
+								<button type="button" class="btn btn-warning">Edit</button>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">6</th>
+							<td>Product1</td>
+							<td>3</td>
+							<td><button type="button" class="btn btn-danger">Remove</button>
+								<button type="button" class="btn btn-warning">Edit</button>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">1</th>
+							<td>Product1</td>
+							<td>3</td>
+							<td><button type="button" class="btn btn-danger">Remove</button>
+								<button type="button" class="btn btn-warning">Edit</button>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td>Product1</td>
+							<td>3</td>
+							<td><button type="button" class="btn btn-danger">Remove</button>
+								<button type="button" class="btn btn-warning">Edit</button>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td>Product1</td>
+							<td>3</td>
+							<td><button type="button" class="btn btn-danger">Remove</button>
+								<button type="button" class="btn btn-warning">Edit</button>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">4</th>
+							<td>Product1</td>
+							<td>3</td>
+							<td><button type="button" class="btn btn-danger">Remove</button>
+								<button type="button" class="btn btn-warning">Edit</button>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">5</th>
+							<td>Product1</td>
+							<td>3</td>
+							<td><button type="button" class="btn btn-danger">Remove</button>
+								<button type="button" class="btn btn-warning">Edit</button>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">6</th>
+							<td>Product1</td>
+							<td>3</td>
+							<td><button type="button" class="btn btn-danger">Remove</button>
+								<button type="button" class="btn btn-warning">Edit</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="order_list">
+			<div class="col-md-12 col-lg-12">
+				<h2>Order List</h2>
+			</div>
+			<div class="col-md-12 col-lg-12 table-wrapper-scroll-y watch-inventory-table-scrollbar">
+				<table class="table table-hover table-dark">
+					<thead>
+						<tr>
+							<th scope="col">Order ID</th>
+							<th scope="col">Customer Name</th>
+							<th scope="col">Location</th>
+							<th scope="col">Delivery Status</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>15784869</td>
+							<td>Sahil Patwary</td>
+							<td>Dhaka</td>
+							<td>Delivered</td>
+							<td>
+								<button type="button" class="btn btn-danger">Remove</button>
+							</td>
+						</tr>
+						<tr>
+							<td>157878569</td>
+							<td>Tanjir Arafat</td>
+							<td>Dhaka</td>
+							<td>In The Factory</td>
+							<td>
+								<button type="button" class="btn btn-danger">Remove</button>
+							</td>
+						</tr>
+						<tr>
+							<td>15987869</td>
+							<td>Maruf Rayhan</td>
+							<td>Rangpur</td>
+							<td>On the way</td>
+							<td>
+								<button type="button" class="btn btn-danger">Remove</button>
+							</td>
+						</tr>
+						<tr>
+							<td>15765469</td>
+							<td>Arefin Rayhan Rafi</td>
+							<td>Rangpur</td>
+							<td>Delivered</td>
+							<td>
+								<button type="button" class="btn btn-danger">Remove</button>
+							</td>
+						</tr>
+						<tr>
+							<td>15725469</td>
+							<td>Mittil Ferdous</td>
+							<td>Rangpur</td>
+							<td>Delivered</td>
+							<td>
+								<button type="button" class="btn btn-danger">Remove</button>
+							</td>
+						</tr>
+						<tr>
+							<td>15747869</td>
+							<td>Fahim Ashraf Himel</td>
+							<td>Rangpur</td>
+							<td>On the way</td>
+							<td>
+								<button type="button" class="btn btn-danger">Remove</button>
+							</td>
+						</tr>
+						<tr>
+							<td>13144869</td>
+							<td>Ayon Ahnaf</td>
+							<td>Rangpur</td>
+							<td>Delivered</td>
+							<td>
+								<button type="button" class="btn btn-danger">Remove</button>
+							</td>
+						</tr>
+						<tr>
+							<td>157548969</td>
+							<td>Mahadi Moon</td>
+							<td>Rangpur</td>
+							<td>Delivered</td>
+							<td>
+								<button type="button" class="btn btn-danger">Remove</button>
+							</td>
+						</tr>
+						<tr>
+							<td>15631869</td>
+							<td>Arfad Prodhan Porag</td>
+							<td>Rangpur</td>
+							<td>Delivered</td>
+							<td>
+								<button type="button" class="btn btn-danger">Remove</button>
+							</td>
+						</tr>
+						<tr>
+							<td>15784124</td>
+							<td>Nazmul Huda Nur</td>
+							<td>Rangpur</td>
+							<td>Delivered</td>
+							<td>
+								<button type="button" class="btn btn-danger">Remove</button>
+							</td>
+						</tr>
+						<tr>
+							<td>87584869</td>
+							<td>Kabir Shawon</td>
+							<td>Dhaka</td>
+							<td>Delivered</td>
+							<td>
+								<button type="button" class="btn btn-danger">Remove</button>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="expense">
+			<div class="col-md-12 col-lg-12">
+				<h2>Expense</h2>
+			</div>
+		</div>
+		<div class="add_category">
+			<div class="col-md-12 col-lg-12">
+				<h2>Add Category</h2>
+			</div>
+			<div class="col-md-12 col-lg-12">
+				<form th:action="@{/addCategory}" method="post" th:object="${productCategory}" id="add_category_form">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+							<div class="form-group">
+								<label for="categoryName">Category</label>
+								<input type="text" class="form-control" th:field="*{category}" id="categoryName"
+									placeholder="Enter a category">
+							</div>
+							<div class="form-group">
+								<label for="subCategryName">Sub-category</label>
+								<input type="text" class="form-control" th:field="*{subCategory}" id="subCategryName"
+									placeholder="Enter a sub-category">
+							</div>
+							<div class="form-group d-flex justify-content-center">
+								<button type="submit" class="btn btn-primary" id="add_inventory_submit">Submit</button>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<form th:action="@{/admin/dashboard/findSubCategory}" method="post" th:object="${productCategory}" id="add_category_form">
+							<div class="form-group">
+								<label for="productCategory">Category</label>
+								<select class="form-control" th:field="*{category}" id="productCategory" onchange="this.form.submit()">
+									<option th:each="products_category : ${categoryList}"
+										th:value="${products_category.id}" th:text="${products_category.category}">
+									</option>
+								</select>
+							</div>
+						</form>
+						<br />
+						<table class="table table-hover table-dark">
+							<thead>
+								<tr>
+									<th scope="col">Sub-category</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="sCategory : ${categoryList}">
+									<td>15784869</td>
+									<td>
+										<button type="button" class="btn btn-danger">Remove</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="application/javascript" th:src="@{/js/admin.js}"></script>
+	<script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>
+	<script type="application/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

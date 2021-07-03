@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/fragments :: admin_header">
+</head>
+
+<body>
+<div id="orderList">
+    <div th:replace="fragments/fragments :: admin_sidebar"></div>
+
+    <div class="page-content p-2" id="content">
+        <div class="col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-md-4 col-lg-4">
+                    <h2>Order List</h2>
+                </div>
+                <div class="col-md-8 col-lg-8">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <input type="date" id="filteredDateOrderList" name="filteredDateOrderList"
+                                       onchange="filteredDateOrderList()">
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <input type="text" id="filteredOrderIDOrderList" name="filteredOrderIDOrderList"
+                                       placeholder="Type the Order Id">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            <button type="button" class="btn btn-outline-secondary"
+                                    onclick="filteredOrderIDOrderList()">Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 table-wrapper-scroll-y watch-inventory-table-scrollbar">
+            <table class="table table-hover table-dark" id="orderListTable">
+                <thead>
+                <tr>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Delivery Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody id="orderListTableBody">
+                <tr th:each="order : ${orderList}">
+                    <td th:text="${order.ordeUniqueID}"/>
+                    <td th:text="${order.userDao.name}"/>
+                    <td th:text="${order.userDao.location}"/>
+                    <td th:text="${order.deliveryStatus}"/>
+                    <td>
+                        <button type="button" class="btn btn-outline-warning btn-sm" th:data-id="${order.ordeUniqueID}"
+                                onclick="detailsOder(this.getAttribute('data-id'))">
+                            Details
+                        </button>
+                        <button type="button" class="btn btn-outline-danger btn-sm" th:data-id="${order.ordeUniqueID}"
+                                onclick="cancelOrder(this.getAttribute('data-id'))">Cancel
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<div class="col-md-12 col-lg-12" id="orderDetailsDivOrderList">
+    <div class="row p-2">
+        <div class="col-lg-11 col-md-11 d-flex justify-content-center">
+            <h1>Order ID:</h1>
+            <h1 id="orderIDOrderList" class="text-secondary"></h1>
+        </div>
+        <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+            <i class="fas fa-times-circle" onclick="closeOrderDetailsDivOrderList()"
+               id="closeOrderDetailsDivOrderList"></i>
+        </div>
+    </div>
+    <div class="row p-2">
+        <div class="col-md-6 col-lg-6">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <label for="customerNameOrderList">Customer Name:</label>
+                    <h3 id="customerNameOrderList" class="text-secondary">Name</h3>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <label for="customerPhoneNumberOrderList">Contact Number:</label>
+                    <h3 id="customerPhoneNumberOrderList" class="text-secondary">Phone</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <label for="customerAddressOrderList">Address:</label>
+                    <h3 id="customerAddressOrderList" class="text-secondary"></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <label for="customerNoteOrderList" class="text-danger">Note:</label>
+                    <h3 id="customerNoteOrderList" class="text-muted"></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            <div class="row d-flex table-wrapper-scroll-y justify-content-center">
+                <table id="orderProductTableOrderList" class="table table-hover table-dark">
+                    <thead>
+                    <tr>
+                        <td>Product Name</td>
+                        <td>Size</td>
+                        <td>Quantity</td>
+                        <td>Discount</td>
+                        <td>Action</td>
+                    </tr>
+                    </thead>
+                    <tbody id="orderProductTableBodyOrderList"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row p-2">
+        <div class="col-md-6 col-lg-6">
+            <label for="paymentStatusOrderList">Payment Status:</label>
+            <h1 id="paymentStatusOrderList"></h1>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            <label for="paymentMethodOrderList">Payment Method:</label>
+            <h1 id="paymentMethodOrderList" class="text-muted"></h1>
+        </div>
+    </div>
+
+    <div class="row p-2">
+        <div class="col-md-6 col-lg-6">
+            <label for="orderDiscountOrderList">Order Discount:</label>
+            <h1 id="orderDiscountOrderList" class="text-muted"></h1>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            <label for="orderFromOrderList">Order From:</label>
+            <h1 id="orderFromOrderList" class="text-muted"></h1>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    var ordersFromDB = /*[[${orderList}]]*/ 'default';
+
+    /*]]>*/
+</script>
+
+<script type="application/javascript" th:src="@{/js/admin.js}"></script>
+<script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="application/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

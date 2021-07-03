@@ -1,0 +1,421 @@
+<!-- <div class="dashboar_header">
+            <div class="logo">
+                ShuchiShoili
+            </div>
+            <div class="other">
+                Dashboard
+            </div>
+        </div> -->
+        <!-- <div class="dashboard_body">
+            <div class="general_body">
+                <h1>Welcome to the office. Let's sell Bags</h1>
+            </div>
+            <div class="add_order_body">
+                <div class="customer_information">
+                    <div class="customer_name">
+                        <label for="customer_name_input">Name:</label>
+                        <input type="text" id="customer_name_input"/>
+                    </div>
+                    <div class="customer_number">
+                        <label for="customer_number_input">Phone:</label>
+                        <input type="text" id="customer_number_input"/>
+                    </div>
+                    <div class="customer_address">
+                        <label for="customer_address_input">Address:</label>
+                        <textarea name="address" id="customer_address_input" rows="4" cols="50" placeholder="Address"></textarea>
+                    </div>
+                    <div class="customer_note">
+                        <label for="customer_note_input">Note:</label>
+                        <textarea id="customer_note_input" rows="4" cols="50" placeholder="Note"></textarea>
+                    </div>
+                    <div class="customer_location">
+                        <label for="customer_location_select">Location:</label>
+                        <select id="customer_location_select">
+                            <option value="80">Inside Dhaka</option>
+                            <option value="120">Outside Dhaka</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="customer_buying_products">
+                    <div class="customer_buying_products_name">
+                        <label for="customer_buying_products_name_select">Products:</label>
+                        <select id="customer_buying_products_name_select">
+                            <option value="volvo">Volvo</option>
+                            <option value="saab">Saab</option>
+                            <option value="opel">Opel</option>
+                            <option value="audi">Audi</option>
+                        </select>
+                    </div>
+                    <div class="customer_buying_products_quantity">
+                        <label for="customer_buying_products_quantity_select">Quantity:</label>
+                        <input type="number" id="customer_buying_products_quantity_select">
+                    </div>
+                    <div class="product_discounts">
+                        <label for="product_discounts_input">Discount:</label>
+                        <input type="number" id="product_discounts_input"/>
+                    </div>
+                    <div class="product_payment_type">
+                        <label for="product_payment_type_select">Payment:</label>
+                        <select id="product_payment_type_select">
+                            <option value="Bkash">Bkash</option>
+                            <option value="Nagad">Nagad</option>
+                            <option value="cod">Cash on delivery</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
+                    <div class="product_add">
+                        <button class="product_add_div">Add to Order</button>
+                    </div>
+                    <div class="product_display">
+                    </div>
+                </div>
+                <div class="order_submit">
+                    <button class="order_submit_div">Submit</button>
+                </div>
+            </div>
+            <div class="add_inventory">
+                <div class="row">
+                    <div class="col-small-9">Hello</div>
+                    <div class="col-small-3">#</div>
+                </div>
+                <!-- <div class="inventory_product">
+                    <form id="inventory_product_form" method="post">
+                        <div class="ip_cat">
+                            <label for="ip_cat_input">Category:</label>
+                            <select id="ip_cat_input">
+                                <option value="1">Bags</option>
+                                <option value="2">Dress</option>
+                            </select>
+                        </div>
+                        <div class="ip_name">
+                            <label for="ip_name_input">Name:</label>
+                            <input type="text" id="ip_name_input" required/>
+                        </div>
+                        <div class="ip_desc">
+                            <label for="ip_desc_input">Description:</label>
+                            <textarea id="ip_desc_input" rows="4" cols="50" placeholder="Product Description"></textarea>
+                        </div>
+                        <div class="ip_size">
+                            <label for="ip_size_input">Size:</label>
+                            <input type="text" id="ip_size_input" required />
+                        </div>
+                        <div class="ip_quantity">
+                            <label for="ip_quantity_input">Quantity:</label>
+                            <input type="number" id="ip_quantity_input" required/>
+                        </div>
+                        <div class="ip_prize">
+                            <label for="ip_prize_input">Prize</label>
+                            <input type="number" id="ip_prize_input" required/>
+                        </div>
+                        <div class="ip_img">
+                            <label for="ip_img_input">Product Image:</label>
+                            <input type="file" id="ip_img_input" required/>
+                        </div>
+                        <div class="ip_submit">
+                            <input type="button" id="ip_submit_button" value="Submit"/>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="inventory_product_image">
+                    <img class="ip_image_show" th:src="@{/images/product_default.jpg}" />
+                </div> -->
+            </div>
+            <div class="watch_inventory">
+                <div class="inventory_category">
+                    <label for="inventory_category_select">Category:</label>
+                    <select id="inventory_category_select">
+                        <option value="bags">Bags</option>
+                        <option value="dress">Dress</option>
+                    </select>
+                </div>
+                <div class="inventory_products_cards">
+                    <div class="inventory_product_card">
+                        <div class="inventory_product_card_img">
+                            <img th:src="@{'/images/FC/FC1.jpg'}"/>
+                        </div>
+                        <div class="inventory_product_card_name">
+                            <label>Product1</label>
+                        </div>
+                        <div class="inventory_product_card_price">
+                            <label>৳1200</label>
+                        </div>
+                        <div class="inventory_product_card_DQ">
+                            <label>৳100 off</label>
+                            <label>5</label>
+                        </div>
+                        <div class="inventory_product_card_ED">
+                            <button class="inventory_product_card_edit">Edit</button>
+                            <button class="inventory_product_card_delete">Delete</button>
+                        </div>                        
+                    </div>
+                    <div class="inventory_product_card">
+                        <div class="inventory_product_card_img">
+                            <img th:src="@{'/images/FC/FC2.jpg'}"/>
+                        </div>
+                        <div class="inventory_product_card_name">
+                            <label>Product2</label>
+                        </div>
+                        <div class="inventory_product_card_price">
+                            <label>৳1300</label>
+                        </div>
+                        <div class="inventory_product_card_DQ">
+                            <label>৳80 off</label>
+                            <label>5</label>
+                        </div>
+                        <div class="inventory_product_card_ED">
+                            <button class="inventory_product_card_edit">Edit</button>
+                            <button class="inventory_product_card_delete">Delete</button>
+                        </div>                        
+                    </div>
+                    <div class="inventory_product_card">
+                        <div class="inventory_product_card_img">
+                            <img th:src="@{'/images/FC/FC3.jpg'}"/>
+                        </div>
+                        <div class="inventory_product_card_name">
+                            <label>Product1</label>
+                        </div>
+                        <div class="inventory_product_card_price">
+                            <label>৳1200</label>
+                        </div>
+                        <div class="inventory_product_card_DQ">
+                            <label>৳100 off</label>
+                            <label>5</label>
+                        </div>
+                        <div class="inventory_product_card_ED">
+                            <button class="inventory_product_card_edit">Edit</button>
+                            <button class="inventory_product_card_delete">Delete</button>
+                        </div>                        
+                    </div>
+                    <div class="inventory_product_card">
+                        <div class="inventory_product_card_img">
+                            <img th:src="@{'/images/FC/FC1.jpg'}"/>
+                        </div>
+                        <div class="inventory_product_card_name">
+                            <label>Product1</label>
+                        </div>
+                        <div class="inventory_product_card_price">
+                            <label>৳1200</label>
+                        </div>
+                        <div class="inventory_product_card_DQ">
+                            <label>৳100 off</label>
+                            <label>5</label>
+                        </div>
+                        <div class="inventory_product_card_ED">
+                            <button class="inventory_product_card_edit">Edit</button>
+                            <button class="inventory_product_card_delete">Delete</button>
+                        </div>                        
+                    </div>
+                    <div class="inventory_product_card">
+                        <div class="inventory_product_card_img">
+                            <img th:src="@{'/images/FC/FC1.jpg'}"/>
+                        </div>
+                        <div class="inventory_product_card_name">
+                            <label>Product1</label>
+                        </div>
+                        <div class="inventory_product_card_price">
+                            <label>৳1200</label>
+                        </div>
+                        <div class="inventory_product_card_DQ">
+                            <label>৳100 off</label>
+                            <label>5</label>
+                        </div>
+                        <div class="inventory_product_card_ED">
+                            <button class="inventory_product_card_edit">Edit</button>
+                            <button class="inventory_product_card_delete">Delete</button>
+                        </div>                        
+                    </div>
+                    <div class="inventory_product_card">
+                        <div class="inventory_product_card_img">
+                            <img th:src="@{'/images/FC/FC1.jpg'}"/>
+                        </div>
+                        <div class="inventory_product_card_name">
+                            <label>Product1</label>
+                        </div>
+                        <div class="inventory_product_card_price">
+                            <label>৳1200</label>
+                        </div>
+                        <div class="inventory_product_card_DQ">
+                            <label>৳100 off</label>
+                            <label>5</label>
+                        </div>
+                        <div class="inventory_product_card_ED">
+                            <button class="inventory_product_card_edit">Edit</button>
+                            <button class="inventory_product_card_delete">Delete</button>
+                        </div>                        
+                    </div>
+                    <div class="inventory_product_card">
+                        <div class="inventory_product_card_img">
+                            <img th:src="@{'/images/FC/FC1.jpg'}"/>
+                        </div>
+                        <div class="inventory_product_card_name">
+                            <label>Product1</label>
+                        </div>
+                        <div class="inventory_product_card_price">
+                            <label>৳1200</label>
+                        </div>
+                        <div class="inventory_product_card_DQ">
+                            <label>৳100 off</label>
+                            <label>5</label>
+                        </div>
+                        <div class="inventory_product_card_ED">
+                            <button class="inventory_product_card_edit">Edit</button>
+                            <button class="inventory_product_card_delete">Delete</button>
+                        </div>                        
+                    </div>
+                    <div class="inventory_product_card">
+                        <div class="inventory_product_card_img">
+                            <img th:src="@{'/images/FC/FC1.jpg'}"/>
+                        </div>
+                        <div class="inventory_product_card_name">
+                            <label>Product1</label>
+                        </div>
+                        <div class="inventory_product_card_price">
+                            <label>৳1200</label>
+                        </div>
+                        <div class="inventory_product_card_DQ">
+                            <label>৳100 off</label>
+                            <label>5</label>
+                        </div>
+                        <div class="inventory_product_card_ED">
+                            <button class="inventory_product_card_edit">Edit</button>
+                            <button class="inventory_product_card_delete">Delete</button>
+                        </div>                        
+                    </div>
+                    <div class="inventory_product_card">
+                        <div class="inventory_product_card_img">
+                            <img th:src="@{'/images/FC/FC1.jpg'}"/>
+                        </div>
+                        <div class="inventory_product_card_name">
+                            <label>Product1</label>
+                        </div>
+                        <div class="inventory_product_card_price">
+                            <label>৳1200</label>
+                        </div>
+                        <div class="inventory_product_card_DQ">
+                            <label>৳100 off</label>
+                            <label>5</label>
+                        </div>
+                        <div class="inventory_product_card_ED">
+                            <button class="inventory_product_card_edit">Edit</button>
+                            <button class="inventory_product_card_delete">Delete</button>
+                        </div>                        
+                    </div>
+                    <div class="inventory_product_card">
+                        <div class="inventory_product_card_img">
+                            <img th:src="@{'/images/FC/FC1.jpg'}"/>
+                        </div>
+                        <div class="inventory_product_card_name">
+                            <label>Product1</label>
+                        </div>
+                        <div class="inventory_product_card_price">
+                            <label>৳1200</label>
+                        </div>
+                        <div class="inventory_product_card_DQ">
+                            <label>৳100 off</label>
+                            <label>5</label>
+                        </div>
+                        <div class="inventory_product_card_ED">
+                            <button class="inventory_product_card_edit">Edit</button>
+                            <button class="inventory_product_card_delete">Delete</button>
+                        </div>                        
+                    </div>
+                    <div class="inventory_product_card">
+                        <div class="inventory_product_card_img">
+                            <img th:src="@{'/images/FC/FC1.jpg'}"/>
+                        </div>
+                        <div class="inventory_product_card_name">
+                            <label>Product1</label>
+                        </div>
+                        <div class="inventory_product_card_price">
+                            <label>৳1200</label>
+                        </div>
+                        <div class="inventory_product_card_DQ">
+                            <label>৳100 off</label>
+                            <label>5</label>
+                        </div>
+                        <div class="inventory_product_card_ED">
+                            <button class="inventory_product_card_edit">Edit</button>
+                            <button class="inventory_product_card_delete">Delete</button>
+                        </div>                        
+                    </div>
+                    <div class="inventory_product_card">
+                        <div class="inventory_product_card_img">
+                            <img th:src="@{'/images/FC/FC1.jpg'}"/>
+                        </div>
+                        <div class="inventory_product_card_name">
+                            <label>Product1</label>
+                        </div>
+                        <div class="inventory_product_card_price">
+                            <label>৳1200</label>
+                        </div>
+                        <div class="inventory_product_card_DQ">
+                            <label>৳100 off</label>
+                            <label>5</label>
+                        </div>
+                        <div class="inventory_product_card_ED">
+                            <button class="inventory_product_card_edit">Edit</button>
+                            <button class="inventory_product_card_delete">Delete</button>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="inventory_products_pagination">
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>4</button>
+                    <button>5</button>
+                    <button>6</button>
+                    <button>7</button>
+                    <button>8</button>
+                    <button>9</button>
+                    <button>10</button>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard_sidebar">
+            <div class="sidebar">
+                <ul>
+                    <li>
+                        <a class="sidebar_add_order">Add Order
+                        </a>
+                        <!-- <ul class="sidebar_first_show">
+                            <li><a>Add order</a></li>
+                            <li><a href="#">Order List</a></li>
+                        </ul> -->
+                    </li>
+                    <li>
+                        <a class="sidebar_order_list">Order list
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a href="#" class="sidebar_second">Deliveries
+                        </a>
+                    </li> -->
+                    <!-- <li>
+                        <a href="#" class="sidebar_third">Sales
+                        </a>
+                    </li> -->
+                    <li>
+                        <a href="#" class="sidebar_add_inventory">Add Inventory
+                        </a>
+                        <!-- <ul class="sidebar_fourth_show">
+                            <li><a>Add Inventory</a></li>
+                            <li><a>Watch Inventory</a></li>
+                        </ul> -->
+                    </li>
+                    <li>
+                        <a href="#" class="sidebar_inventory_list">Inventory List
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a href="#" class="sidebar_fifth">Report
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="sidebar_sixth">Reports
+                        </a>
+                    </li> -->
+                </ul>
+            </div>
+        </div> -->

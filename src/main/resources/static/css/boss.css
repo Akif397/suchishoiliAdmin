@@ -1,0 +1,871 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* font-family: 'Dancing Script', cursive;
+    font-family: 'Poppins', sans-serif; */
+}
+
+.boss_container {
+    position: absolute;
+    top: 20vh;
+    left: 40vw;
+    width: 20vw;
+    height: 50vh;
+    grid-template-columns: 10vw 10vw;
+    grid-template-rows: 35vh 15vh;
+    display: grid;
+    grid-template-areas: "bose_logo bose_logo" "boss_dashboard boss_web_setting";
+    background-color: #010b13;
+}
+
+.bose_logo {
+    grid-area: bose_logo;
+    color: white;
+    font-family: 'Dancing Script', cursive;
+    justify-self: center;
+    align-self: center;
+    letter-spacing: .5vw;
+    font-size: 3vh;
+    font-weight: bolder;
+}
+
+.boss_dashboard {
+    grid-area: boss_dashboard;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    justify-self: center;
+    align-self: center;
+    letter-spacing: .1vw;
+    text-decoration: none;
+}
+
+.boss_web_setting {
+    grid-area: boss_web_setting;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    justify-self: center;
+    align-self: center;
+    letter-spacing: .1vw;
+}
+
+.boss_dashboard:hover,
+.boss_web_setting:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: .5s;
+}
+
+.dashboard_container {
+    height: 100vh;
+    width: 100vw;
+    /* display: grid;
+    grid-template-columns: 15vw 85vw;
+    grid-template-rows: 10vh 90vh;
+    grid-template-areas: "dashboar_header dashboar_header" "dashboard_sidebar dashboard_body";*/
+} 
+
+.dashboard{
+    background-color: red;
+    height: 100vh;
+}
+
+.navbar{
+    background-color: #535353;
+    height: 100vh;
+}
+
+.dashboar_header {
+    grid-area: dashboar_header;
+    /* justify-items: center;
+    align-items: center; */
+    display: grid;
+    grid-template-columns: 20vw 80vw;
+}
+
+.logo {
+    font-family: 'Dancing Script', cursive;
+    justify-self: center;
+    align-self: center;
+    letter-spacing: .5vw;
+    font-size: 2vh;
+}
+
+.other {
+    font-family: 'Poppins', sans-serif;
+    justify-self: left;
+    align-self: center;
+    font-weight: bolder;
+    font-size: 3vh;
+}
+
+.dashboard_body {
+    grid-area: dashboard_body;
+    background-color: blueviolet;
+}
+
+.dashboard_sidebar {
+    grid-area: dashboard_sidebar;
+    display: grid;
+    /* justify-items: center;
+    align-items: center; */
+    background-color: #1b1b1b;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+#sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
+    background: #7386D5;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    /* width: 15vw; */
+}
+
+.sidebar ul {
+    /* background: #1b1b1b; */
+    list-style: none;
+    /* width: 100%; */
+    height: 100%;
+}
+
+.sidebar ul li {
+    line-height: 60px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar ul li a {
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding-left: 2vw;
+    width: 100%;
+    height: 100%;
+    border-left: 3px solid transparent;
+}
+
+.sidebar ul li a:hover {
+    color: cyan;
+    background: #1e1e1e;
+    border-left-color: cyan;
+    cursor: pointer;
+}
+
+.sidebar ul ul {
+    position: static;
+    display: none;
+}
+
+.sidebar ul .sidebar_first_show.show,
+.sidebar ul .sidebar_fourth_show.show {
+    display: block;
+}
+
+.sidebar ul ul li {
+    line-height: 2.05vw;
+    border-bottom: none;
+}
+
+.sidebar ul ul li a {
+    background: #535353;
+    color: #f1f1f1;
+    padding-left: 8vw;
+    /* text-align: center; */
+}
+
+.sidebar ul ul li a:hover {
+    background: #a1a0a0;
+}
+
+
+/* .sidebar ul li a span {
+    position: absolute;
+    top: 40%;
+    right: 1vw;
+    transform: translateX(-50%);
+    transition: transform 0.4s;
+}
+
+.sidebar ul li a:hover span {
+    transform: translateX(-50%) rotate(-180deg);
+} */
+
+.general_body.hide {
+    display: none;
+    opacity: 0;
+}
+
+.add_order_body {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    /* transform: translateX(100%); */
+    background: white;
+    display: none;
+    opacity: 0;
+}
+
+.add_order_body.show {
+    display: grid;
+    /* transform: translateX(0); */
+    /* transition: transform 1s; */
+    opacity: 1;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 90% 10%;
+    grid-template-areas: "customer_information customer_buying_products" "order_submit order_submit";
+}
+
+.customer_information {
+    grid-area: customer_information;
+    position: relative;
+    width: 70%;
+    height: 90%;
+    justify-self: center;
+    align-self: center;
+    background-color: rgb(224, 220, 220);
+    display: grid;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+}
+
+.customer_name {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.customer_name label {
+    justify-self: center;
+    align-self: center;
+}
+
+.customer_name input[type="text"] {
+    height: 30%;
+    width: 50%;
+    justify-self: left;
+    align-self: center;
+}
+
+.customer_number {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.customer_number label {
+    justify-self: center;
+    align-self: center;
+}
+
+.customer_number input[type="text"] {
+    height: 30%;
+    width: 50%;
+    justify-self: left;
+    align-self: center;
+}
+
+.customer_address {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.customer_address label {
+    justify-self: center;
+    align-self: center;
+}
+
+.customer_address textarea {
+    justify-self: left;
+    align-self: center;
+}
+
+.customer_note {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.customer_note label {
+    justify-self: center;
+    align-self: center;
+}
+
+.customer_note textarea {
+    justify-self: left;
+    align-self: center;
+}
+
+.customer_location {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+}
+
+.customer_location label {
+    justify-self: center;
+    align-self: center;
+}
+
+.customer_location select {
+    height: 30%;
+    width: 50%;
+    justify-self: left;
+    align-self: center;
+}
+
+.customer_buying_products {
+    grid-area: customer_buying_products;
+    display: grid;
+    position: relative;
+    width: 70%;
+    height: 90%;
+    justify-self: center;
+    align-self: center;
+    background-color: rgb(235, 230, 230);
+    grid-template-rows: 12% 12% 12% 12% 12% 40%;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+}
+
+.customer_buying_products_name {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+}
+
+.customer_buying_products_name label {
+    justify-self: center;
+    align-self: center;
+}
+
+.customer_buying_products_name select {
+    height: 30%;
+    width: 50%;
+    justify-self: left;
+    align-self: center;
+}
+
+.customer_buying_products_quantity {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+}
+
+.customer_buying_products_quantity label {
+    justify-self: center;
+    align-self: center;
+}
+
+.customer_buying_products_quantity input[type="number"] {
+    height: 30%;
+    width: 50%;
+    justify-self: left;
+    align-self: center;
+}
+
+.product_discounts {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+}
+
+.product_discounts label {
+    justify-self: center;
+    align-self: center;
+}
+
+.product_discounts input[type="number"] {
+    height: 30%;
+    width: 50%;
+    justify-self: left;
+    align-self: center;
+}
+
+.product_payment_type {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+}
+
+.product_payment_type select {
+    height: 30%;
+    width: 50%;
+    justify-self: left;
+    align-self: center;
+}
+
+.product_payment_type label {
+    justify-self: center;
+    align-self: center;
+}
+
+.product_add {
+    display: grid;
+    height: 40%;
+    width: 30%;
+    justify-self: center;
+    align-self: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+    background-color: rgb(140, 156, 153);
+}
+
+.product_add div {
+    justify-self: center;
+    align-self: center;
+    color: white;
+}
+
+.product_display {
+    display: grid;
+    font-family: 'Poppins', sans-serif;
+    font-size: medium;
+    opacity: 0;
+    overflow: auto;
+}
+
+
+/* .product_display.show {
+    display: grid;
+} */
+
+.product_display table {
+    width: 100%;
+    height: 100%;
+    /* justify-self: center;
+    align-self: center; */
+}
+
+.product_display table tr th {
+    height: 20%;
+}
+
+.order_submit {
+    grid-area: order_submit;
+    display: grid;
+}
+
+.order_submit button {
+    justify-self: center;
+    background-color: rgb(19, 2, 66);
+    align-self: center;
+    color: white;
+    height: 40%;
+    width: 10%;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+}
+
+.order_submit button:hover,
+.product_add button:hover,
+.add_inventory_submit button:hover {
+    cursor: pointer;
+}
+
+.watch_inventory {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: white;
+    display: none;
+    opacity: 0;
+    overflow: auto;
+}
+
+.watch_inventory.show {
+    display: grid;
+    opacity: 1;
+    grid-template-rows: 5% 90% 5%;
+}
+
+.inventory_category {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.inventory_category label {
+    justify-self: right;
+    align-self: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2vh;
+}
+
+.inventory_category select {
+    justify-self: left;
+    align-self: center;
+    width: 20%;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2vh;
+}
+
+.inventory_products_cards {
+    display: grid;
+    grid-template-columns: 24% 24% 24% 25%;
+    grid-template-rows: 32% 32% 32%;
+    grid-gap: 1%;
+}
+
+.inventory_product_card {
+    display: grid;
+    padding: 5%;
+    /* background-color: #535353; */
+    grid-template-rows: 55% 15% 10% 10% 10%;
+    background-color: rgb(209, 206, 206);
+}
+
+.inventory_product_card_name {
+    display: grid;
+    justify-items: center;
+}
+
+.inventory_product_card_img {
+    display: grid;
+    justify-items: center;
+}
+
+.inventory_product_card_img img {
+    height: 100%;
+    border: #535353 1px solid;
+}
+
+.inventory_product_card_name {
+    align-self: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: larger;
+}
+
+.inventory_product_card_price {
+    display: grid;
+    justify-self: center;
+    align-self: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: medium;
+}
+
+.inventory_product_card_DQ {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-items: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: medium;
+}
+
+.inventory_product_card_ED {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.inventory_product_card_edit {
+    justify-self: center;
+    align-self: center;
+    width: 50%;
+    height: 100%;
+    background-color: darkorange;
+    font-family: 'Poppins', sans-serif;
+    font-size: small;
+    color: whitesmoke;
+}
+
+.inventory_product_card_delete {
+    justify-self: center;
+    align-self: center;
+    width: 50%;
+    height: 100%;
+    background-color: crimson;
+    font-family: 'Poppins', sans-serif;
+    font-size: small;
+    color: whitesmoke;
+}
+
+.inventory_product_card_edit:hover,
+.inventory_product_card_delete:hover {
+    cursor: pointer;
+}
+
+.inventory_products_pagination {
+    display: inline;
+    justify-self: center;
+}
+
+
+/* .inventory_products_pagination button {
+    height: 40%;
+    width: 20%;
+} */
+
+.add_inventory {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: white;
+    display: none;
+    opacity: 0;
+}
+
+.add_inventory.show {
+    display: grid;
+    opacity: 1;
+    grid-template-columns: 1.5fr 1fr;
+    /* grid-template-rows: 90% 10%; */
+    /* grid-template-areas: "add_inventory_details add_inventory_image" "add_inventory_submit add_inventory_submit"; */
+}
+
+.inventory_product form {
+    display: grid;
+    height: 100%;
+    padding: 10%;
+    grid-template-rows: repeat(8, 1fr);
+}
+
+.ip_cat,
+.ip_name,
+.ip_desc,
+.ip_size,
+.ip_quantity,
+.ip_prize,
+.ip_img {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+}
+
+.ip_cat label,
+.ip_name label,
+.ip_desc label,
+.ip_size label,
+.ip_quantity label,
+.ip_prize label,
+.ip_img label {
+    justify-self: left;
+    align-self: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: medium;
+}
+
+.ip_cat select,
+.ip_name input,
+.ip_size input,
+.ip_quantity input,
+.ip_prize input,
+.ip_img input {
+    justify-self: left;
+    align-self: center;
+    height: 4vh;
+    width: 15vw;
+    font-family: 'Poppins', sans-serif;
+    font-size: medium;
+}
+
+.ip_desc textarea {
+    font-family: 'Poppins', sans-serif;
+    font-size: medium;
+    width: 25vw;
+}
+
+.ip_submit {
+    justify-self: center;
+    align-self: center;
+}
+
+#ip_submit_button {
+    background: darkgreen;
+    color: whitesmoke;
+    font-family: 'Poppins', sans-serif;
+    font-size: medium;
+    height: 4vh;
+    width: 4vw;
+}
+
+#ip_submit_button:hover {
+    cursor: pointer;
+}
+
+.inventory_product_image {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+
+/* .add_inventory_image {
+    grid-area: add_inventory_image;
+    background-color: rgb(224, 220, 220);
+    position: relative;
+    width: 70%;
+    height: 90%;
+    justify-self: center;
+    align-self: center;
+    display: grid;
+    grid-template-rows: 90% 10%;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+}
+
+.add_inventory_image_div {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.add_inventory_image_input {
+    display: block;
+    justify-self: center;
+    align-self: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.add_inventory_details {
+    grid-area: add_inventory_details;
+    background-color: rgb(224, 220, 220);
+    position: relative;
+    width: 70%;
+    height: 90%;
+    justify-self: center;
+    align-self: center;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+}
+
+.add_inventory_submit {
+    grid-area: add_inventory_submit;
+    display: grid;
+}
+
+.add_inventory_submit button {
+    background-color: rgb(19, 2, 66);
+    justify-self: center;
+    align-self: center;
+    color: white;
+    height: 40%;
+    width: 10%;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+} */
+
+.product_category {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+}
+
+.product_category label {
+    justify-self: center;
+    align-self: center;
+}
+
+.product_category select {
+    height: 20%;
+    width: 60%;
+    justify-self: left;
+    align-self: center;
+}
+
+.product_name {
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+.product_name label {
+    justify-self: center;
+    align-self: center;
+}
+
+.product_name input[type="text"] {
+    height: 20%;
+    width: 60%;
+    justify-self: left;
+    align-self: center;
+}
+
+.product_description {
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+.product_description label {
+    justify-self: center;
+    align-self: center;
+}
+
+.product_description textarea {
+    justify-self: left;
+    align-self: center;
+}
+
+.product_size {
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+.product_size label {
+    justify-self: center;
+    align-self: center;
+}
+
+.product_size input[type="number"] {
+    height: 20%;
+    width: 60%;
+    justify-self: left;
+    align-self: center;
+}
+
+.product_prize {
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+.product_prize label {
+    justify-self: center;
+    align-self: center;
+}
+
+.product_prize input[type="number"] {
+    height: 20%;
+    width: 60%;
+    justify-self: left;
+    align-self: center;
+}
+
+.product_quantity {
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+.product_quantity label {
+    justify-self: center;
+    align-self: center;
+}
+
+.product_quantity input[type="number"] {
+    height: 20%;
+    width: 60%;
+    justify-self: left;
+    align-self: center;
+}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/fragments :: admin_header">
+</head>
+
+<body>
+	<div th:replace="fragments/fragments :: admin_sidebar"></div>
+
+	<div class="page-content p-2" id="content">
+		<div class="col-md-12 col-lg-12">
+			<h2>Expense</h2>
+		</div>
+	</div>
+
+	<script type="application/javascript" th:src="@{/js/admin.js}"></script>
+	<script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>
+	<script type="application/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head th:fragment="admin_header">
+	<meta charset='UTF-8'>
+	<link rel="stylesheet" th:href="@{/css/admin.css}">
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+	<!-- <link rel="shortcut icon" th:href="@{/favicon/favicon_suchi_shoili_logo.png}" /> -->
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+		integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+	<title>
+		ShuchiShoili Admin
+	</title>
+</head>
+
+<body>
+	<div class="vertical-nav bg-white" id="sidebar" th:fragment="admin_sidebar">
+		<div class="py-4 px-3 mb-4 bg-light">
+			<div class="media d-flex align-items-center">
+				<img th:src="@{'/images/favicon/favicon_suchi_shoili_logo.png'}" alt="..." width="80" height="80"
+					class="mr-3 rounded-circle img-thumbnail shadow-sm">
+				<div class="media-body">
+					<h4 class="m-0">Akif</h4>
+					<p class="font-weight-normal text-muted mb-0">Web Developer</p>
+				</div>
+			</div>
+		</div>
+		<p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Dashboard</p>
+		<ul class="nav flex-column bg-white mb-0">
+			<li class="nav-item">
+				<a class="nav-link text-dark text-uppercase bg-light" id="sidebar_add_order" th:href="@{/addOrder}">
+					<i class="fas fa-shopping-basket mr-3 text-primary fa-fw"></i>
+					Add Order
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-dark text-uppercase bg-light" id="sidebar_order_list" th:href="@{/orderList}">
+					<i class="fas fa-store mr-3 text-primary fa-fw"></i>
+					Order List
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-dark text-uppercase bg-light" id="sidebar_add_inventory"
+					th:href="@{/addInventory}">
+					<i class="fas fa-truck-loading mr-3 text-primary fa-fw"></i>
+					Add Inventory
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-dark text-uppercase bg-light" id="sidebar_inventory_list"
+					th:href="@{/watchInventory}">
+					<i class="fas fa-warehouse mr-3 text-primary fa-fw"></i>
+					Watch Inventory
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-dark text-uppercase bg-light" id="sidebar_expense" th:href="@{/expense}">
+					<i class="fas fa-warehouse mr-3 text-primary fa-fw"></i>
+					Expense
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-dark text-uppercase bg-light" id="sidebar_add_category"
+					th:href="@{/addCategory}">
+					<i class="fas fa-shopping-basket mr-3 text-primary fa-fw"></i>
+					Add Category
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div id="successDiv" class="alert alert-dark col-lg-2 col-md-2 bg-success text-white" role="alert" th:fragment="success">
+		<div class="row">
+			<div class="col-lg-10 col-md-10 d-flex justify-content-center">Successfull</div>
+			<div class="col-lg-1 col-md-1 d-flex justify-content-center" id="successClose"
+				onclick="addSuccessHide()"><i class="fas fa-window-close"></i></div>
+		</div>
+	</div>
+	<div id="duplicateEntryDiv" class="alert alert-dark col-lg-3 col-md-3 bg-warning text-white" role="alert" th:fragment="duplicateEntry">
+		<div class="row">
+			<div class="col-lg-10 col-md-10 d-flex justify-content-center">This entry already exists</div>
+			<div class="col-lg-1 col-md-1 d-flex justify-content-center" id="duplicateEntryClose"
+				onclick="duplicateEntryHide()"><i class="fas fa-window-close"></i></div>
+		</div>
+	</div>
+	<div id="failDiv"
+		class="alert alert-dark col-lg-3 col-md-3 bg-danger text-white d-flex justify-content-center" role="alert" th:fragment="fail">
+		<div class="row">
+			<div class="col-lg-10 col-md-10 d-flex justify-content-center">Failed. Please try again.</div>
+			<div class="col-lg-1 col-md-1 d-flex justify-content-center" id="failClose"
+				onclick="addFailHide()"><i class="fas fa-window-close"></i></div>
+		</div>
+	</div>
+</body>
+
+</html>

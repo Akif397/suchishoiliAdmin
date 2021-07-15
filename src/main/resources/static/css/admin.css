@@ -188,3 +188,7 @@ body{
 	filter: blur(50px);
 	pointer-events: none;
 }
+
+#add_order_customer_details, #add_order_product{
+	background-color: #818182;
+}

@@ -5,174 +5,172 @@
 </head>
 
 <body>
-	<div th:replace="fragments/fragments :: admin_sidebar"></div>
+<div th:replace="fragments/fragments :: admin_sidebar"></div>
 
-	<div class="page-content p-2" id="content">
-		<!--<div class="add_inventory">-->
-		<div class="col-md-12 col-lg-12">
-			<h2>Add Inventory</h2>
-		</div>
-		<div class="col-md-12 col-lg-12">
-			<!--th:action="@{/addProduct}" method="post" -->
-			<form th:object="${product}" method="post" id="add_inventory_form">
-				<div class="row">
-					<div class="col-lg-4">
-						<div class="form-group">
-							<label for="inventoryProductCategory">Category</label>
-							<select class="form-control" id="inventoryProductCategory"
-								onchange="findSubcategoryFor('inventoryProductCategory', 'inventoryProductSubcategory')">
-								<option th:value="SelectCategory" disabled selected="true">Select a Category</option>
-								<option th:each="products_category : ${categoryList}"
-									th:value="${products_category.category}" th:text="${products_category.category}">
-								</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="inventoryProductSubcategory">Sub-category</label>
-							<select class="form-control" id="inventoryProductSubcategory">
-								<option selected="true" disabled>Select a Sub-category</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="productName">Name</label>
-							<input type="text" class="form-control" th:field="*{name}" id="productName"
-								placeholder="Enter a name" required>
-						</div>
-						<div class="form-group">
-							<label for="productDescription">Description</label>
-							<textarea class="form-control" th:field="*{description}" id="productDescription" rows="3"
-								placeholder="Description" required></textarea>
-						</div>
-						<div class="form-group">
-							<label for="productPrize">Prize</label>
-							<input type="number" class="form-control" id="productPrize" required>
-						</div>
-						<div class="form-group form-check">
-							<input type="checkbox" class="form-check-input" id="multipleSizesCheckbox">
-							<label for="multipleSizesCheckbox">Add Multiple Sizes</label>
-						</div>
-						<div class="form-group">
-							<div class="row">
-								<div class="col-md-4 col-lg-4">
-									<div class="form-group">
-										<label for="inventoryProductSizeSelect">Size</label>
-										<select class="form-control" id="inventoryProductSizeSelect">
-											<option selected="true" disabled>Size</option>
-										</select>
-									</div>
-								</div>
-								<div class="col-md-6 col-lg-6 d-flex justify-content-center align-items-center"
-									id="inventoryProductSizeAddDiv">
-									<div class="row">
-										<div class="col-md-8 col-lg-8">
-											<input type="text" class="form-control" id="productSize" placeholder="Size">
-										</div>
-										<div class="col-md-4 col-lg-4">
-											<button type="button" class="btn btn-secondary"
-												id="inventoryProductSizeSaveButton">Save</button>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-2 col-lg-2 d-flex justify-content-center align-items-center">
-									<button type="button" class="btn btn-secondary" id="inventoryProductSizeAddButton"
-										disabled><i class="fas fa-plus-circle"></i></button>
-								</div>
+<div class="page-content p-2" id="content">
+    <!--<div class="add_inventory">-->
+    <div class="col-md-12 col-lg-12">
+        <h2>Add Inventory</h2>
+    </div>
+    <div class="col-md-12 col-lg-12">
+        <!--th:action="@{/addProduct}" method="post" -->
+        <!--			<form th:object="${product}" method="post" id="add_inventory_form">-->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="inventoryProductCategory">Category</label>
+                    <select class="form-control" id="inventoryProductCategory"
+                            onchange="findSubcategoryFor('inventoryProductCategory', 'inventoryProductSubcategory')">
+                        <option disabled selected="true">Select a Category</option>
+                        <option th:each="products_category : ${categoryList}"
+                                th:value="${products_category.category}" th:text="${products_category.category}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inventoryProductSubcategory">Sub-category</label>
+                    <select class="form-control" id="inventoryProductSubcategory">
+                        <option selected="true" disabled>Select a Sub-category</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="productName">Name</label>
+                    <input type="text" class="form-control" id="productName"
+                           placeholder="Enter a name">
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Description</label>
+                    <textarea class="form-control" id="productDescription" rows="3"
+                              placeholder="Description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="productPrize">Prize</label>
+                    <input type="number" class="form-control" id="productPrize" placeholder="Prize">
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="multipleSizesCheckbox">
+                    <label for="multipleSizesCheckbox">Add Multiple Sizes</label>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label for="inventoryProductSizeSelect">Size</label>
+                                <select class="form-control" id="inventoryProductSizeSelect">
+                                    <option selected="true" disabled>Size</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 d-flex justify-content-center align-items-center"
+                             id="inventoryProductSizeAddDiv">
+                            <div class="row">
+                                <div class="col-md-8 col-lg-8">
+                                    <input type="text" class="form-control" id="productSize" placeholder="Size">
+                                </div>
+                                <div class="col-md-4 col-lg-4">
+                                    <button type="button" class="btn btn-secondary"
+                                            id="inventoryProductSizeSaveButton">Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-lg-2 d-flex justify-content-center align-items-center">
+                            <button type="button" class="btn btn-secondary" id="inventoryProductSizeAddButton"
+                                    disabled><i class="fas fa-plus-circle"></i></button>
+                        </div>
 
-							</div>
-						</div>
-<!--						<div class="form-group">-->
-<!--							<label for="productQuantity">Quantity</label>-->
-<!--							<input type="number" class="form-control" id="productQuantity" required>-->
-<!--						</div>-->
-					</div>
-					<!--<div class="col-lg-8">
-						<div class="row">
-							<div class="col-lg-4">
-								<div class="form-group">
-									<label for="productViewImage1">Product View Image 1</label>
-									<input type="file" class="form-control-file" id="productViewImage1">
-									<img th:src="@{'/images/FC/FC1.jpg'}" alt="..." class="img-thumbnail">
-								</div>
-							</div>
-							<div class="col-lg-4">
-								<div class="form-group">
-									<label for="productViewImage2">Product View Image 2</label>
-									<input type="file" class="form-control-file" id="productViewImage2">
-									<img th:src="@{'/images/FC/FC2.jpg'}" alt="..." class="img-thumbnail">
-								</div>
-							</div>
-							<div class="col-lg-4">
-								<div class="form-group">
-									<label for="productDetailsImage1">Product Details Image 1</label>
-									<input type="file" class="form-control-file" id="productDetailsImage1">
-									<img th:src="@{'/images/FC/FC3.jpg'}" alt="..." class="img-thumbnail">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-4">
-								<div class="form-group">
-									<label for="productViewImage1">Product View Image 1</label>
-									<input type="file" class="form-control-file" id="productViewImage1">
-									<img th:src="@{'/images/FC/FC1.jpg'}" alt="..." class="img-thumbnail">
-								</div>
-							</div>
-							<div class="col-lg-4">
-								<div class="form-group">
-									<label for="productViewImage2">Product View Image 2</label>
-									<input type="file" class="form-control-file" id="productViewImage2">
-									<img th:src="@{'/images/FC/FC2.jpg'}" alt="..." class="img-thumbnail">
-								</div>
-							</div>
-							<div class="col-lg-4">
-								<div class="form-group">
-									<label for="productDetailsImage1">Product Details Image 1</label>
-									<input type="file" class="form-control-file" id="productDetailsImage1">
-									<img th:src="@{'/images/FC/FC3.jpg'}" alt="..." class="img-thumbnail">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-4">
-								<div class="form-group">
-									<label for="productViewImage1">Product View Image 1</label>
-									<input type="file" class="form-control-file" id="productViewImage1">
-									<img th:src="@{'/images/FC/FC1.jpg'}" alt="..." class="img-thumbnail">
-								</div>
-							</div>
-							<div class="col-lg-4">
-								<div class="form-group">
-									<label for="productViewImage2">Product View Image 2</label>
-									<input type="file" class="form-control-file" id="productViewImage2">
-									<img th:src="@{'/images/FC/FC2.jpg'}" alt="..." class="img-thumbnail">
-								</div>
-							</div>
-							<div class="col-lg-4">
-								<div class="form-group">
-									<label for="productDetailsImage1">Product Details Image 1</label>
-									<input type="file" class="form-control-file" id="productDetailsImage1">
-									<img th:src="@{'/images/FC/FC3.jpg'}" alt="..." class="img-thumbnail">
-								</div>
-							</div>
-						</div>
-					</div>-->
-				</div>
-				<div class="col-md-12 col-lg-12 d-flex justify-content-center">
-					<button type="submit" class="btn btn-primary" id="add_inventory_submit"
-						onclick="addInventorySubmitForm()">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="productViewImage1">Product View Image 1</label>
+                            <input type="file" class="form-control-file" id="productViewImage1">
+                            <img th:src="@{'/images/FC/FC1.jpg'}" alt="..." class="img-thumbnail">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="productViewImage2">Product View Image 2</label>
+                            <input type="file" class="form-control-file" id="productViewImage2">
+                            <img th:src="@{'/images/FC/FC2.jpg'}" alt="..." class="img-thumbnail">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="productDetailsImage1">Product Details Image 1</label>
+                            <input type="file" class="form-control-file" id="productDetailsImage1">
+                            <img th:src="@{'/images/FC/FC3.jpg'}" alt="..." class="img-thumbnail">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="productViewImage1">Product View Image 1</label>
+                            <input type="file" class="form-control-file" id="productViewImage1">
+                            <img th:src="@{'/images/FC/FC1.jpg'}" alt="..." class="img-thumbnail">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="productViewImage2">Product View Image 2</label>
+                            <input type="file" class="form-control-file" id="productViewImage2">
+                            <img th:src="@{'/images/FC/FC2.jpg'}" alt="..." class="img-thumbnail">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="productDetailsImage1">Product Details Image 1</label>
+                            <input type="file" class="form-control-file" id="productDetailsImage1">
+                            <img th:src="@{'/images/FC/FC3.jpg'}" alt="..." class="img-thumbnail">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="productViewImage1">Product View Image 1</label>
+                            <input type="file" class="form-control-file" id="productViewImage1">
+                            <img th:src="@{'/images/FC/FC1.jpg'}" alt="..." class="img-thumbnail">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="productViewImage2">Product View Image 2</label>
+                            <input type="file" class="form-control-file" id="productViewImage2">
+                            <img th:src="@{'/images/FC/FC2.jpg'}" alt="..." class="img-thumbnail">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="productDetailsImage1">Product Details Image 1</label>
+                            <input type="file" class="form-control-file" id="productDetailsImage1">
+                            <img th:src="@{'/images/FC/FC3.jpg'}" alt="..." class="img-thumbnail">
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+        <div class="col-md-12 col-lg-12 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary" id="add_inventory_submit"
+                    onclick="addInventorySubmitForm()">Submit
+            </button>
 
-				</div>
-			</form>
-		</div>
-		<!--</div>-->
-		<div th:replace="fragments/fragments :: success"></div>
-		<div th:replace="fragments/fragments :: fail"></div>
-		<div th:replace="fragments/fragments :: duplicateEntry"></div>
-	</div>
+        </div>
+        <!--			</form>-->
+    </div>
+    <!--</div>-->
+    <div th:replace="fragments/fragments :: success"></div>
+    <div th:replace="fragments/fragments :: fail"></div>
+    <div th:replace="fragments/fragments :: duplicateEntry"></div>
+</div>
 
-	<script type="application/javascript" th:src="@{/js/admin.js}"></script>
-	<script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>
-	<script type="application/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script type="application/javascript" th:src="@{/js/admin.js}"></script>
+<script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="application/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 
 </html>

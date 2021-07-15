@@ -17,11 +17,7 @@ public class Product {
     @Column(nullable = false, length = 500)
     private String description;
 
-//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<Order> orders;
-
-    @OneToMany(targetEntity = SubcategorySize.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_fk", referencedColumnName = "id")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SubcategorySize> sizes;
 
     @Column(nullable = false, length = 20)
@@ -33,14 +29,6 @@ public class Product {
 
     @Column(nullable = false, length = 100)
     private LocalDateTime createDate;
-
-//    public List<Order> getOrders() {
-//        return orders;
-//    }
-//
-//    public void setOrders(List<Order> orders) {
-//        this.orders = orders;
-//    }
 
     public LocalDateTime getCreateDate() {
         return createDate;

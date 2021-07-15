@@ -41,7 +41,6 @@ var productsForOrder = [];
 
 //variables for the form submissions
 let add_inventory_submit = document.querySelector("#add_inventory_submit");
-let add_inventory_form = document.querySelector("#add_inventory_form");
 
 //variables for addInventory.html
 let inventoryProductAddButton = document.querySelector("#inventoryProductSizeAddButton");
@@ -258,50 +257,92 @@ function addInventorySubmitForm() {
     let productDescription = document.querySelector("#productDescription").value;
     let productSize = document.querySelector("#inventoryProductSizeSelect").value;
     let productPrize = document.querySelector("#productPrize").value;
-    // let productQuantity = document.querySelector("#productQuantity").value;
-    $("#add_inventory_form").submit(function (e) {
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-        let form = $(this);
-        let url = "submitAddProduct";
-        let value = {
-            category: category,
-            subCategory: subCategory,
-            productName: productName,
-            productDescription: productDescription,
-            productSize: productSize,
-            productPrize: productPrize,
-            // productQuantity: productQuantity
-        }
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: value, // serializes the form's elements.
-            dataType: 'json',
-            success: function (returnData) {
-                console.log(returnData);
-                if (returnData === 1) {
-                    let addSuccess = $('#successDiv');
-                    addSuccess.toggleClass('show');
-                    if (!multipleSizesCheckbox.checked) {
-                        form[0].reset();
-                    } else {
-                        document.querySelector("#inventoryProductSizeSelect").options[0].selected = true;
-                        document.querySelector("#productQuantity").value = 0;
-                    }
 
-                    let productSizeSelect = document.querySelector("#inventoryProductSizeSelect");
-                    for (let i = 1; i < productSizeSelect.options.length; i++) {
-                        productSizeSelect.options[i] = null;
+    let url = "submitAddProduct";
+    let value = {
+        category: category,
+        subCategory: subCategory,
+        productName: productName,
+        productDescription: productDescription,
+        productSize: productSize,
+        productPrize: productPrize,
+        // productQuantity: productQuantity
+    }
+
+
+    if (category === "Select a Category") {
+        alert("Select a Category.")
+        document.querySelector("#inventoryProductCategory").focus();
+        return;
+    }
+    if (subCategory === "Select a Sub-category") {
+        alert("Select a Sub-category.")
+        document.querySelector("#inventoryProductSubcategory").focus();
+        return;
+    }
+    if (productName.length === 0) {
+        alert("Product Name Missing.")
+        document.querySelector("#productName").focus();
+        return;
+    }
+    if (productDescription.length === 0) {
+        alert("Product Description Missing.")
+        document.querySelector("#productDescription").focus();
+        return;
+    }
+    if (productPrize.length === 0) {
+        alert("Product Prize Missing.")
+        document.querySelector("#productPrize").focus();
+        return;
+    }
+    if (productSize === "Size") {
+        alert("Product Size Missing.")
+        document.querySelector("#inventoryProductSizeSelect").focus();
+        return;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: value, // serializes the form's elements.
+        dataType: 'json',
+        success: function (returnData) {
+            console.log(returnData);
+            if (returnData === 1) {
+                let addSuccess = $('#successDiv');
+                addSuccess.toggleClass('show');
+                if (!multipleSizesCheckbox.checked) {
+                    document.querySelector("#inventoryProductCategory").options[0].selected = true;
+                    for (let i = document.querySelector("#inventoryProductSubcategory").options.length - 1; i > 0 ; i--){
+                        document.querySelector("#inventoryProductSubcategory").options[i] = null;
                     }
-                } else if (returnData === 0) {
-                    let addDuplicateEntry = $('#duplicateEntryDiv');
-                    addDuplicateEntry.toggleClass('show');
+                    document.querySelector("#inventoryProductSubcategory").options[0].selected = true;
+                    document.querySelector("#productName").value = "";
+                    document.querySelector("#productName").placeholder = "Enter a name";
+                    document.querySelector("#productDescription").value = "";
+                    document.querySelector("#productDescription").placeholder = "Description";
+                    document.querySelector("#productPrize").value = "";
+                    document.querySelector("#productPrize").placeholder = "Prize";
+                    for (let i = document.querySelector("#inventoryProductSizeSelect").options.length - 1; i > 0; i--){
+                        document.querySelector("#inventoryProductSizeSelect").options[i] = null;
+                    }
+                    document.querySelector("#inventoryProductSizeSelect").options[0].selected = true;
+                } else {
+                    document.querySelector("#inventoryProductSizeSelect").options[0].selected = true;
                 }
-            },
-            error: function (jq, status, message) {
-                alert('A jQuery error has occurred. Status: ' + status + ' - Message: ' + message);
+
+                // let productSizeSelect = document.querySelector("#inventoryProductSizeSelect");
+                // for (let i = 1; i < productSizeSelect.options.length; i++) {
+                //     productSizeSelect.options[i] = null;
+                // }
+            } else if (returnData === 0) {
+                let addDuplicateEntry = $('#duplicateEntryDiv');
+                addDuplicateEntry.toggleClass('show');
             }
-        });
+        },
+        error: function (jq, status, message) {
+            alert('A jQuery error has occurred. Status: ' + status + ' - Message: ' + message);
+        }
     });
 }
 
@@ -619,6 +660,7 @@ function addProductToOrderList() {
         add_order_product_discount.placeholder = "Discount";
     } else {
         alert("Please Select a product to add");
+        document.querySelector("#add_order_product_category").focus();
     }
 }
 
@@ -1012,7 +1054,7 @@ function addOrderOrderDiscount() {
     document.querySelector("#add_order_order_discount_button").disabled = true;
 }
 
-function cancelOrder(orderUniqeID){
+function cancelOrder(orderUniqeID) {
     let url = "cancelOrder";
     let value = {
         orderUniqeID: orderUniqeID
@@ -1023,9 +1065,9 @@ function cancelOrder(orderUniqeID){
         data: value,
         dataType: 'json',
         success: function (returnData) {
-            if (returnData === 1){
-                for(let i = 0; i < ordersFromDB.length; i++){
-                    if (ordersFromDB[i].ordeUniqueID === parseInt(orderUniqeID)){
+            if (returnData === 1) {
+                for (let i = 0; i < ordersFromDB.length; i++) {
+                    if (ordersFromDB[i].ordeUniqueID === parseInt(orderUniqeID)) {
                         ordersFromDB[i].deliveryStatus = "ORDER_CANCEL";
                         break;
                     }

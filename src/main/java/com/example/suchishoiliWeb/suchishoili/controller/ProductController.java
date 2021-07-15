@@ -165,7 +165,6 @@ public class ProductController {
         String productDescription = request.getParameter("productDescription");
         String productSize = request.getParameter("productSize");
         int productPrize = Integer.parseInt(request.getParameter("productPrize"));
-//		int productQuantity = Integer.parseInt(request.getParameter("productQuantity"));
 
         ProductSubcategory subCategoryFromDB = productSubcategoryRepository.findBySubCategory(subCategory);
         Product checkProduct = productRepository.findByNameAndProductSubcategory(productName, subCategoryFromDB);
@@ -195,7 +194,6 @@ public class ProductController {
                 return ResponseEntity.ok("1");
             }
             return (ResponseEntity<String>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
-
         }
         // the product is new
         Product product = new Product();
@@ -213,6 +211,7 @@ public class ProductController {
                 sizeAndQuantity = subCategoryFromDB.getProductSizesAndQuantities().get(i);
 //				sizeAndQuantity.setQuantity(productQuantity);
                 productSizesAndQuantities.add(sizeAndQuantity);
+                break;
             }
         }
         product.setSizes(productSizesAndQuantities);

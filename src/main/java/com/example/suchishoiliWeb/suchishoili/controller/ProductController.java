@@ -252,7 +252,8 @@ public class ProductController {
             }
             ProductSubcategory ps = new ProductSubcategory();
             ps.setSubCategory(subCategoryName);
-            productSubcategories.add(ps);
+            ProductSubcategory psFromDB = productSubcategoryRepository.saveAndFlush(ps);
+            productSubcategories.add(psFromDB);
 
             ProductCategory savedCategory = productCategoryRepository.saveAndFlush(checkedPc);
             return savedCategory;
@@ -274,17 +275,21 @@ public class ProductController {
 
     @DeleteMapping("/deleteSubCategory")
     public @ResponseBody
-    ProductCategory deleteSubCategory(HttpServletRequest request, HttpServletResponse response) {
+    List<String> deleteSubCategory(HttpServletRequest request, HttpServletResponse response) {
         String subCategory = request.getParameter("subCategory");
         String category = request.getParameter("category");
         productSubcategoryRepository.deleteBySubCategory(subCategory);
+        List<String> subcategoryList = new LinkedList<>();
         ProductCategory checkedPc = productCategoryRepository.findByCategory(category);
         List<ProductSubcategory> productSubcategories = checkedPc.getSubCategories();
         for (int i = 0; i < productSubcategories.size(); i++) {
             if (productSubcategories.get(i).getSubCategory().equals(subCategory)) {
                 productSubcategories.remove(i);
             }
+            else{
+                subcategoryList.add(productSubcategories.get(i).getSubCategory());
+            }
         }
-        return checkedPc;
+        return subcategoryList;
     }
 }

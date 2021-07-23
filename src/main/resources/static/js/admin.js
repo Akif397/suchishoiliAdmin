@@ -467,15 +467,15 @@ function addCategorySubmitForm() {
                 form[0].reset();
                 let addSuccess = $('#successDiv');
                 let is_new_category = false;
-                for (let i = 0; i < categoryComboOptions.length; i++) {
-                    if (i !== 0 && category !== categoryComboOptions[i].text) {
+                for (let i = 1; i < categoryComboOptions.length; i++) {
+                    if (category !== categoryComboOptions[i].text) {
                         is_new_category = true;
                     } else if (i !== 0 && category === categoryComboOptions[i].text) {
                         is_new_category = false;
                         break;
                     }
                 }
-                if (is_new_category) {
+                if (is_new_category || categoryComboOptions.length === 1) {
                     let productCategorySelect = $('#productCategorySelect');
                     productCategorySelect.append('<option value="' + returnData.category + '">' + returnData.category + '</option>)');
                 }
@@ -709,9 +709,8 @@ function deleteSubcategory(subcategory) {
         data: value,
         dataType: 'json',
         success: function (returnData) {
-            console.log(returnData);
             let productSubCategoryTableBody = $("#productSubCategoryTableBody");
-            let productSubCategoryTableHTML = populateproductSubcategoryTable(returnData.subCategories);
+            let productSubCategoryTableHTML = populateproductSubcategoryTable(returnData);
             productSubCategoryTableBody.html(productSubCategoryTableHTML);
             let addSuccess = $('#successDiv');
             addSuccess.toggleClass('show');
@@ -737,12 +736,12 @@ function duplicateEntryHide() {
 function populateproductSubcategoryTable(subcategoryList) {
     let productSubCategoryTableHTML = "";
     for (let i = 0; i < subcategoryList.length; i++) {
-        let subCategory = subcategoryList[i].subCategory;
+        let subCategory = subcategoryList[i];
         let innerHTML = "<tr>" +
             "<td>" + subCategory + "</td>" +
             "<td><button type=\"button\" " +
             "class=\"btn btn-danger\" " +
-            "id=\"productSubcategory_" + subcategoryList[i].subCategory + "\" " +
+            "id=\"productSubcategory_" + subcategoryList[i] + "\" " +
             "onclick=\"deleteSubcategory(\'" + subCategory + "\')\">Remove</button></td></tr>";
         productSubCategoryTableHTML += innerHTML;
     }

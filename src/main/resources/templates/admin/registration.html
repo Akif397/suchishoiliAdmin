@@ -1,0 +1,39 @@
+<html>
+<head th:replace="fragments/fragments :: admin_header">
+</head>
+<body>
+<div class="registraionForm">
+    <div class="row d-flex justify-content-center text-black">
+        <h1>Registration</h1>
+    </div>
+    <div class="row">
+        <input type="text" class="form-control" id="admin_registration_name"
+               placeholder="Name" required>
+    </div>
+    <br>
+    <div class="row">
+        <input type="email" class="form-control" id="admin_registration_email"
+               placeholder="Email" required>
+    </div>
+    <br>
+    <div class="row">
+        <input type="password" class="form-control" id="admin_registration_password"
+               placeholder="Password" required>
+    </div>
+    <br>
+    <div class="row">
+        <input type="password" class="form-control" id="admin_registration_confirm_password"
+               placeholder="Confirm Password" required>
+    </div>
+    <br>
+    <div class="row d-flex justify-content-center">
+        <button class="btn btn-outline-primary btn-sm" id="admin_login_submit"
+                onclick="adminRegistrationSubmit()">Submit
+        </button>
+    </div>
+</div>
+<script type="application/javascript" th:src="@{/js/admin.js}"></script>
+<script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="application/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

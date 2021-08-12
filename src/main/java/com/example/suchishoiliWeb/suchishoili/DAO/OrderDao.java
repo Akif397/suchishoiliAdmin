@@ -1,5 +1,8 @@
 package com.example.suchishoiliWeb.suchishoili.DAO;
 
+import org.apache.tomcat.jni.Local;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderDao {
@@ -13,6 +16,15 @@ public class OrderDao {
     private int orderDiscount;
     private List<ProductDao> productDaos;
     private UserDao userDao;
+    private LocalDateTime orderedTime;
+
+    public LocalDateTime getOrderedTime() {
+        return orderedTime;
+    }
+
+    public void setOrderedTime(LocalDateTime orderedTime) {
+        this.orderedTime = orderedTime;
+    }
 
     public Long getOrderID() {
         return orderID;

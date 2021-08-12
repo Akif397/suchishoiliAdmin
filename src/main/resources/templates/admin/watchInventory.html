@@ -5,113 +5,121 @@
 </head>
 
 <body>
-	<div th:replace="fragments/fragments :: admin_sidebar"></div>
+<div th:replace="fragments/fragments :: admin_sidebar"></div>
 
-	<div class="page-content p-2" id="content">
-		<div class="col-md-12 col-lg-12">
-			<div class="row">
-				<div class="col-md-4 col-lg-4">
-					<h2>Watch Inventory</h2>
-				</div>
-				<div class="col-md-8 col-lg-8">
-					<div class="row">
-						<div class="col-md-4 col-lg-4">
-							<div class="form-group">
-								<select class="form-control" id="productCategoryWatchInventorySelect"
-									onchange="findSubcategoryForWatchInventory('productCategoryWatchInventorySelect', 'productSubcategoryWatchInventorySelect')">
-									<option selected="true" disabled>Select a category</option>
-									<option th:each="products_category : ${categoryList}"
-										th:value="${products_category.category}"
-										th:text="${products_category.category}">
-									</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-md-4 col-lg-4">
-							<div class="form-group">
-								<select class="form-control" id="productSubcategoryWatchInventorySelect"
-									onchange="populateProductTable()">
-									<option selected="true" disabled>Select a Subcategory</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-md-4 col-lg-4">
-							<button type="button" class="btn btn-outline-secondary" id="watchInventoryFilterReset"
-								onclick="resetWatchInventoryFilter()">Reset</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-12 col-lg-12 table-wrapper-scroll-y watch-inventory-table-scrollbar">
-			<table class="table table-dark text-center">
-				<thead>
-					<tr>
-						<th scope="col">Product</th>
-						<th scope="col">Prize</th>
-						<th scope="col">Size</th>
-						<th scope="col">Quantity</th>
-						<th scope="col">Action</th>
-					</tr>
-				</thead>
-				<tbody id="productTableBody">
-					<tr th:each="product : ${productList}">
-						<td th:text="${product.name}" />
-						<td th:text="${product.prize}" class="text-warning font-weight-bold" />
-						<td>
-							<table class="table table-hover table-dark table-borderless">
-								<tr th:each="productSize : ${product.sizes}">
-									<td th:text="${productSize.size}"></td>
-								</tr>
-							</table>
-						</td>
-<!--						<td>-->
-<!--							<table class="table table-hover table-dark table-borderless">-->
-<!--								<tr th:each="productSizeAndQuantity : ${product.sizesAndQuantities}">-->
-<!--									<td th:text="${productSizeAndQuantity.quantity}"></td>-->
-<!--								</tr>-->
-<!--							</table>-->
-<!--						</td>-->
-						<td>
-							<table class="table table-hover table-dark table-borderless">
-								<tr th:each="productSize : ${product.sizes}">
-									<td>
-										<div class="row">
-											<div class="col-md-6 col-lg-6">
-												<button type="button" class="btn btn-outline-danger btn-sm" th:data-id="${productSize.id}"
-													onclick="deleteProduct(this.getAttribute('data-id'))">Remove</button>
-											</div>
-											<div class="col-md-6 col-lg-6">
-												<button type="button" class="btn btn-outline-warning btn-sm" th:data-id="${productSize.id}"
-													onclick="editProduct(this.getAttribute('data-id'))">Edit</button>
-											</div>
-										</div>
-									</td>
-								</tr>
-							</table>
-						</td>
-						<!--<td>
-							<div class="row">
-								<div class="col-md-6 col-lg-6">
-									<button type="button" class="btn btn-danger" th:data-id="${product.id}"
-										onclick="deleteProduct(this.getAttribute('data-id'))">Remove</button>
-								</div>
-								<div class="col-md-6 col-lg-6">
-									<button type="button" class="btn btn-warning" th:data-id="${product.id}"
-										onclick="editProduct(this.getAttribute('data-id'))">Edit</button>
-								</div>
-							</div>
+<div class="page-content p-2" id="content">
+    <div class="col-md-12 col-lg-12">
+        <div class="row">
+            <div class="col-md-4 col-lg-4">
+                <h2>Watch Inventory</h2>
+            </div>
+            <div class="col-md-8 col-lg-8">
+                <div class="row">
+                    <div class="col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <select class="form-control" id="productCategoryWatchInventorySelect"
+                                    onchange="findSubcategoryForWatchInventory('productCategoryWatchInventorySelect', 'productSubcategoryWatchInventorySelect')">
+                                <option selected="true" disabled>Select a category</option>
+                                <option th:each="products_category : ${categoryList}"
+                                        th:value="${products_category.category}"
+                                        th:text="${products_category.category}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <select class="form-control" id="productSubcategoryWatchInventorySelect"
+                                    onchange="populateProductTable()">
+                                <option selected="true" disabled>Select a Subcategory</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <button type="button" class="btn btn-outline-secondary"
+                                id="watchInventoryFilterReset"
+                                onclick="resetWatchInventoryFilter()">Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-12 table-wrapper-scroll-y watch-inventory-table-scrollbar">
+        <table class="table table-dark text-center">
+            <thead>
+            <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Prize</th>
+                <th scope="col">Size</th>
+                <!--						<th scope="col">Quantity</th>-->
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody id="productTableBody">
+            <tr th:each="product : ${productList}">
+                <td th:text="${product.name}"/>
+                <td th:text="${product.prize}" class="text-warning font-weight-bold"/>
+                <td>
+                    <table class="table table-hover table-dark table-borderless">
+                        <tr th:each="productSize : ${product.sizes}">
+                            <td th:text="${productSize.size}"></td>
+                        </tr>
+                    </table>
+                </td>
+                <!--						<td>-->
+                <!--							<table class="table table-hover table-dark table-borderless">-->
+                <!--								<tr th:each="productSizeAndQuantity : ${product.sizesAndQuantities}">-->
+                <!--									<td th:text="${productSizeAndQuantity.quantity}"></td>-->
+                <!--								</tr>-->
+                <!--							</table>-->
+                <!--						</td>-->
+                <td>
+                    <table class="table table-hover table-dark table-borderless">
+                        <tr th:each="productSize : ${product.sizes}">
+                            <td>
+                                <div class="row">
+<!--                                    <div class="col-md-6 col-lg-6">-->
+<!--                                        <button type="button" class="btn btn-outline-danger btn-sm"-->
+<!--                                                th:data-id="${productSize.id}"-->
+<!--                                                onclick="deleteProduct(this.getAttribute('data-id'))">-->
+<!--                                            Remove-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+                                    <div class="col-md-12 col-lg-12">
+                                        <button type="button" class="btn btn-outline-warning btn-sm"
+                                                th:data-id="${productSize.id}"
+                                                onclick="editProduct(this.getAttribute('data-id'))">
+                                            Edit
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <!--<td>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <button type="button" class="btn btn-danger" th:data-id="${product.id}"
+                                onclick="deleteProduct(this.getAttribute('data-id'))">Remove</button>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <button type="button" class="btn btn-warning" th:data-id="${product.id}"
+                                onclick="editProduct(this.getAttribute('data-id'))">Edit</button>
+                        </div>
+                    </div>
 
-						</td>-->
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+                </td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-	<script type="application/javascript" th:src="@{/js/admin.js}"></script>
-	<script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>
-	<script type="application/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script type="application/javascript" th:src="@{/js/admin.js}"></script>
+<script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="application/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 
 </html>

@@ -44,39 +44,18 @@ public class ProductController {
     @Autowired
     OrderService orderService;
 
-    @GetMapping("/admin")
-    public String viewAdminPage(Model model) {
-//		model.addAttribute("productList", productService.getAllProducts());
-        return "admin/index";
-    }
-
-    @GetMapping("/addOrder")
-    public String viewAddOrder(ProductCategory category, Model model) {
-        List<ProductCategory> allCategory = productCategoryRepository.findAll();
-        model.addAttribute("categoryList", allCategory);
-
-        System.out.println("admin addOrder");
-        return "admin/addOrder";
-    }
-
-    @GetMapping("/watchInventory")
-    public String viewWatchInventory(Model model) {
-        System.out.println("admin watchInventory");
-        List<Product> products = productRepository.findAll();
-        List<ProductCategory> categories = productCategoryRepository.findAll();
-        model.addAttribute("productList", products);
-        model.addAttribute("categoryList", categories);
-        return "admin/watchInventory";
-    }
-
     @GetMapping("/productSizesForInventory")
     public @ResponseBody
-    List<SubcategorySize> productSizesForInventory(HttpServletRequest request,
+    List<String> productSizesForInventory(HttpServletRequest request,
                                                    HttpServletResponse response) {
         String subcategory = request.getParameter("subcategory");
         ProductSubcategory ps = productSubcategoryRepository.findBySubCategory(subcategory);
         List<SubcategorySize> productSizes = ps.getProductSizesAndQuantities();
-        return productSizes;
+        List<String> sizeList = new LinkedList<>();
+        for(SubcategorySize size: productSizes){
+            sizeList.add(size.getSize());
+        }
+        return sizeList;
     }
 
     @GetMapping("/findProductBySubcategory")
@@ -102,38 +81,6 @@ public class ProductController {
             productDaos.add(productDao);
         }
         return productDaos;
-    }
-
-    @GetMapping("/expense")
-    public String viewExpense() {
-        System.out.println("admin expense");
-        return "admin/expense";
-    }
-
-    @GetMapping("/addCategory")
-    public String viewAddCategory(ProductCategory productCategory, Model model) {
-        List<ProductCategory> allCategory = productCategoryRepository.findAll();
-        model.addAttribute("categoryList", allCategory);
-        System.out.println("admin addCategory");
-        return "admin/addCategory";
-    }
-
-    @GetMapping("/addInventory")
-    public String viewAddInventory(Product product, Model model) {
-        List<ProductCategory> allCategory = productCategoryRepository.findAll();
-        model.addAttribute("categoryList", allCategory);
-        System.out.println("admin addInventory");
-        return "admin/addInventory";
-    }
-
-    @GetMapping("/orderList")
-    public String viewOrderList(Order order, Model model) {
-        System.out.println("admin orderList");
-        List<Product> productList = productRepository.findAll();
-        List<Order> orderList = orderRepository.findAll();
-        List<OrderDao> orderDaoList = orderService.getOrdersForOrderList(productList, orderList);
-        model.addAttribute("orderList", orderDaoList);
-        return "admin/orderList";
     }
 
     @PostMapping("/submitProductSize")
@@ -226,9 +173,10 @@ public class ProductController {
 
     @PostMapping("/submitAddCategory")
     public @ResponseBody
-    ProductCategory submitAddCategory(HttpServletRequest request, HttpServletResponse response) {
+    List<String> submitAddCategory(HttpServletRequest request, HttpServletResponse response) {
         String categoryName = request.getParameter("category");
         String subCategoryName = request.getParameter("subCategory");
+        List<String> categoryList = null;
 
         ProductCategory checkedPc = productCategoryRepository.findByCategory(categoryName);
         if (checkedPc == null) {
@@ -242,20 +190,28 @@ public class ProductController {
 
             pc.setSubCategories(productSubcategories);
             ProductCategory savedCategory = productCategoryRepository.saveAndFlush(pc);
-            return savedCategory;
+            categoryList = new LinkedList<>();
+            categoryList.add(savedCategory.getCategory());
+            return categoryList;
         } else {
             List<ProductSubcategory> productSubcategories = checkedPc.getSubCategories();
+            //subcategory is already in DB
             for (int i = 0; i < productSubcategories.size(); i++) {
                 if (subCategoryName == productSubcategories.get(i).getSubCategory()) {
-                    return checkedPc;
+                    categoryList = new LinkedList<>();
+                    categoryList.add(checkedPc.getCategory());
+                    return categoryList;
                 }
             }
+            //new subcategory
             ProductSubcategory ps = new ProductSubcategory();
             ps.setSubCategory(subCategoryName);
             productSubcategories.add(ps);
 
             ProductCategory savedCategory = productCategoryRepository.saveAndFlush(checkedPc);
-            return savedCategory;
+            categoryList = new LinkedList<>();
+            categoryList.add(savedCategory.getCategory());
+            return categoryList;
         }
 
     }

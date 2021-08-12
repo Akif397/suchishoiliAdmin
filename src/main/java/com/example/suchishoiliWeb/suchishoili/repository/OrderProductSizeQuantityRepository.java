@@ -11,5 +11,7 @@ import java.util.List;
 public interface OrderProductSizeQuantityRepository extends JpaRepository<OrderProductSizeQuantity, Long>{
     public OrderProductSizeQuantity findByOrderIdAndProductSizeId(Long orderID, Long productSizeID);
 
-    void deleteByProductSizeIdAndOrderId(Long productSizeId, Long orderId);
+    public void deleteByProductSizeIdAndOrderId(Long productSizeId, Long orderId);
+
+    public List<OrderProductSizeQuantity> findByOrderId(Long orderId);
 }

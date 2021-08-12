@@ -3,12 +3,16 @@ package com.example.suchishoiliWeb.suchishoili.service;
 import com.example.suchishoiliWeb.suchishoili.DAO.OrderDao;
 import com.example.suchishoiliWeb.suchishoili.DAO.ProductDao;
 import com.example.suchishoiliWeb.suchishoili.DAO.UserDao;
+import com.example.suchishoiliWeb.suchishoili.SuchishoiliApplication;
 import com.example.suchishoiliWeb.suchishoili.model.Order;
 import com.example.suchishoiliWeb.suchishoili.model.OrderProductSizeQuantity;
 import com.example.suchishoiliWeb.suchishoili.model.Product;
 import com.example.suchishoiliWeb.suchishoili.model.SubcategorySize;
 import com.example.suchishoiliWeb.suchishoili.repository.OrderProductSizeQuantityRepository;
+import com.example.suchishoiliWeb.suchishoili.repository.OrderRepository;
 import com.example.suchishoiliWeb.suchishoili.repository.SubcategorySizeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +25,10 @@ public class OrderService {
     SubcategorySizeRepository subcategorySizeRepository;
     @Autowired
     OrderProductSizeQuantityRepository orderProductSizeQuantityRepository;
+    @Autowired
+    OrderRepository orderRepository;
+
+    private Logger logger = LoggerFactory.getLogger(SuchishoiliApplication.class);
 
     public List<OrderDao> getOrdersForOrderList(List<Product> productList, List<Order> orderList) {
         List<OrderDao> orderDaoList = new LinkedList<>();
@@ -33,6 +41,7 @@ public class OrderService {
             orderDao.setOrderDiscount(orderFromDB.getOrderDiscount());
             orderDao.setOrderFrom(orderFromDB.getOrderFrom());
             orderDao.setPaymentStatus(orderFromDB.isPaymentStatus() ? "Paid" : "Unpaid");
+            orderDao.setOrderNote(orderFromDB.getNote());
             orderDao.setPaymentMethod(orderFromDB.getPaymentMethod());
             userDao.setName(orderFromDB.getUser().getName());
             userDao.setLocation(orderFromDB.getUser().getAddressLocation());

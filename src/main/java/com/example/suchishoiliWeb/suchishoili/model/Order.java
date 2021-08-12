@@ -31,6 +31,9 @@ public class Order {
     @Column(nullable = false, length = 20)
     private String orderFrom;
 
+    @Column(nullable = false, length = 20)
+    private String orderDeliveryAgent;
+
     @Column(nullable = false, length = 500)
     private String note;
 
@@ -42,6 +45,14 @@ public class Order {
 
     @Column(nullable = false, length = 100)
     private String deliveryStatus;
+
+    public String getOrderDeliveryAgent() {
+        return orderDeliveryAgent;
+    }
+
+    public void setOrderDeliveryAgent(String orderDeliveryAgent) {
+        this.orderDeliveryAgent = orderDeliveryAgent;
+    }
 
     public LocalDateTime getOrderDateAndtime() {
         return orderDateAndtime;

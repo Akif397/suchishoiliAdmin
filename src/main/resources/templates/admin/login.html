@@ -1,0 +1,39 @@
+<html>
+<head th:replace="fragments/fragments :: admin_header">
+</head>
+<body>
+<div class="loginForm">
+    <div class="row d-flex justify-content-center text-black">
+        <h1>Login</h1>
+    </div>
+    <div class="row">
+        <input type="email" class="form-control" id="admin_login_email"
+               placeholder="Email" required>
+    </div>
+    <br>
+    <div class="row">
+        <input type="password" class="form-control" id="admin_login_password"
+               placeholder="Password" required>
+    </div>
+    <br>
+    <div class="row d-flex justify-content-start form-check">
+        <input class="form-check-input" type="checkbox" id="admin_login_rememberme">
+        <label class="form-check-label" for="admin_login_rememberme">
+            Remember Me
+        </label>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <button class="btn btn-outline-primary btn-sm" id="admin_login_submit"
+                onclick="adminLoginSubmit()">Login
+        </button>
+    </div>
+    <br>
+    <div class="row d-flex justify-content-end">
+        <a th:href="@{/register}">Create new admin account</a>
+    </div>
+</div>
+<script type="application/javascript" th:src="@{/js/admin.js}"></script>
+<script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="application/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

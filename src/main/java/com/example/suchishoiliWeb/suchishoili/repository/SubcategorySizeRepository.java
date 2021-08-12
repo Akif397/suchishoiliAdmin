@@ -13,6 +13,10 @@ import java.util.List;
 public interface SubcategorySizeRepository extends JpaRepository<SubcategorySize, Long>{
 	SubcategorySize findBySize(String size);
 
+	@Query(value = "SELECT ps.* FROM product_size ps WHERE ps.size = ?1 AND ps.sc_fk = ?2",
+			nativeQuery =	true)
+	SubcategorySize findBySizeAndSubcategoryId(String size, Long subcategoryId);
+
 //	SubcategorySize findByIdAndOrderById(Long productSizeId, Long orderID);
 
 	@Query(value = "SELECT pso.subcategory_size_id FROM product_size_orders pso WHERE pso.orders_id = ?1", nativeQuery =
@@ -20,5 +24,5 @@ public interface SubcategorySizeRepository extends JpaRepository<SubcategorySize
 	List<Long> findByOrders(Long orderID);
 
 	@Query(value = "SELECT * FROM products p WHERE p.id = ?1", nativeQuery = true)
-	Product findByProductSizeId(Long productId);
+	Product findByProductId(Long productId);
 }

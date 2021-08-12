@@ -11,27 +11,48 @@
     <div class="page-content p-2" id="content">
         <div class="col-md-12 col-lg-12">
             <div class="row">
-                <div class="col-md-4 col-lg-4">
+                <div class="col-md-2 col-lg-2">
                     <h2>Order List</h2>
                 </div>
-                <div class="col-md-8 col-lg-8">
+                <div class="col-md-10 col-lg-10">
                     <div class="row">
                         <div class="col-md-3 col-lg-3">
-                            <div class="form-group">
-                                <input type="date" id="filteredDateOrderList" name="filteredDateOrderList"
-                                       onchange="filteredDateOrderList()">
+                            <select class="form-control" id="order_list_filter_select"
+                                    onchange="findOrderListDetails()">
+                                <option selected="true" disabled>Select</option>
+                                <option>Today</option>
+                                <option>Yesterday</option>
+                                <option>This Week</option>
+                                <option>Last Week</option>
+                                <option>This Month</option>
+                                <option>Last Month</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-lg-3">
+                            <input class="form-control" type="date" id="filteredDateOrderList"
+                                   name="filteredDateOrderList"
+                                   onchange="filteredDateOrderList()">
+                        </div>
+                        <div class="col-md-4 col-lg-4 border-left border-right border-danger">
+                            <div class="row">
+                                <div class="col-md-8 col-lg-8">
+                                    <input type="text" id="filteredOrderIDOrderList"
+                                           class="form-control"
+                                           name="filteredOrderIDOrderList"
+                                           placeholder="Type the Order Id">
+                                </div>
+                                <div class="col-md-4 col-lg-4 d-flex justify-content-start">
+                                    <button type="button"
+                                            class="form-control btn-sm btn-outline-secondary"
+                                            onclick="filteredOrderIDOrderList()">Search
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-lg-4">
-                            <div class="form-group">
-                                <input type="text" id="filteredOrderIDOrderList" name="filteredOrderIDOrderList"
-                                       placeholder="Type the Order Id">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-lg-4">
-                            <button type="button" class="btn btn-outline-secondary"
-                                    onclick="filteredOrderIDOrderList()">Search
+                        <div class="col-md-2 col-lg-2">
+                            <button type="button" class="form-control btn-sm btn-outline-warning"
+                                    id="downloadOrderListButton" onclick="downloadOrderList()"><i
+                                    class="fas fa-file-excel"></i> Download
                             </button>
                         </div>
                     </div>
@@ -56,11 +77,13 @@
                     <td th:text="${order.userDao.location}"/>
                     <td th:text="${order.deliveryStatus}"/>
                     <td>
-                        <button type="button" class="btn btn-outline-warning btn-sm" th:data-id="${order.ordeUniqueID}"
-                                onclick="detailsOder(this.getAttribute('data-id'))">
+                        <button type="button" class="btn btn-outline-warning btn-sm"
+                                th:data-id="${order.ordeUniqueID}"
+                                onclick="detailsOrder(this.getAttribute('data-id'))">
                             Details
                         </button>
-                        <button type="button" class="btn btn-outline-danger btn-sm" th:data-id="${order.ordeUniqueID}"
+                        <button type="button" class="btn btn-outline-danger btn-sm"
+                                th:data-id="${order.ordeUniqueID}"
                                 onclick="cancelOrder(this.getAttribute('data-id'))">Cancel
                         </button>
                     </td>
@@ -76,6 +99,9 @@
         <div class="col-lg-11 col-md-11 d-flex justify-content-center">
             <h1>Order ID:</h1>
             <h1 id="orderIDOrderList" class="text-secondary"></h1>
+            <button type="button" class="btn-sm btn-outline-warning m-3" id="invoiceDownloadButton"
+                    onclick="invoiceDownload()"><i class="fas fa-download"></i> Invoice
+            </button>
         </div>
         <div class="col-lg-1 col-md-1 d-flex justify-content-start">
             <i class="fas fa-times-circle" onclick="closeOrderDetailsDivOrderList()"
@@ -146,6 +172,11 @@
         </div>
     </div>
 </div>
+<div th:replace="fragments/fragments :: loading"></div>
+
+<script type="application/javascript" th:src="@{/js/admin.js}"></script>
+<script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="application/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
 
@@ -153,10 +184,6 @@
 
     /*]]>*/
 </script>
-
-<script type="application/javascript" th:src="@{/js/admin.js}"></script>
-<script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>
-<script type="application/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 
 </html>

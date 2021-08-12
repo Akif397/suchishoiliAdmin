@@ -17,7 +17,7 @@ public class Admin implements Serializable {
     @Column(nullable = false, length = 50)
     private String email;
 
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = 100)
     private String password;
 
     @Column(nullable = false, length = 20)
@@ -29,11 +29,11 @@ public class Admin implements Serializable {
     @Column(nullable = false, length = 20)
     private boolean loggedIn;
 
-    @Column(nullable = false, length = 20)
-    private LocalDateTime lastLoginTime;
-
-    @Column(nullable = true, length = 20)
-    private LocalDateTime lastLogoutTime;
+//    @Column(nullable = false, length = 20)
+//    private LocalDateTime lastLoginTime;
+//
+//    @Column(nullable = true, length = 20)
+//    private LocalDateTime lastLogoutTime;
 
     public boolean isLoggedIn() {
         return loggedIn;
@@ -43,21 +43,21 @@ public class Admin implements Serializable {
         this.loggedIn = loggedIn;
     }
 
-    public LocalDateTime getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(LocalDateTime lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
-    public LocalDateTime getLastLogoutTime() {
-        return lastLogoutTime;
-    }
-
-    public void setLastLogoutTime(LocalDateTime lastLogoutTime) {
-        this.lastLogoutTime = lastLogoutTime;
-    }
+//    public LocalDateTime getLastLoginTime() {
+//        return lastLoginTime;
+//    }
+//
+//    public void setLastLoginTime(LocalDateTime lastLoginTime) {
+//        this.lastLoginTime = lastLoginTime;
+//    }
+//
+//    public LocalDateTime getLastLogoutTime() {
+//        return lastLogoutTime;
+//    }
+//
+//    public void setLastLogoutTime(LocalDateTime lastLogoutTime) {
+//        this.lastLogoutTime = lastLogoutTime;
+//    }
 
     public long getId() {
         return id;

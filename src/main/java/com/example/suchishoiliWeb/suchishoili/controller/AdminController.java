@@ -9,6 +9,7 @@ import com.example.suchishoiliWeb.suchishoili.model.Admin;
 import com.example.suchishoiliWeb.suchishoili.model.Order;
 import com.example.suchishoiliWeb.suchishoili.model.Product;
 import com.example.suchishoiliWeb.suchishoili.model.ProductCategory;
+import com.example.suchishoiliWeb.suchishoili.principal.AdminPrincipal;
 import com.example.suchishoiliWeb.suchishoili.repository.AdminRepository;
 import com.example.suchishoiliWeb.suchishoili.repository.OrderRepository;
 import com.example.suchishoiliWeb.suchishoili.repository.ProductCategoryRepository;
@@ -17,11 +18,11 @@ import com.example.suchishoiliWeb.suchishoili.service.AdminService;
 import com.example.suchishoiliWeb.suchishoili.service.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.io.Resource;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,9 +52,9 @@ public class AdminController {
     OrderService orderService;
     @Autowired
     AdminService adminService;
-    @Qualifier("redisTemplate")
-    @Autowired
-    RedisTemplate redisTemplate;
+//    @Qualifier("redisTemplate")
+//    @Autowired
+//    RedisTemplate redisTemplate;
 
     @GetMapping("/admin")
     public String viewAdminPage(Model model) {
@@ -68,10 +69,10 @@ public class AdminController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboard(HttpServletRequest request, Model model) {
-        String email = request.getParameter("email").trim();
+    public String dashboard(Model model) {
+//        String email = request.getParameter("email").trim();
 //        Todo todoFromRedis = (Todo) template.opsForHash().get(REDIS_CACHE_HASH, idLong);
-        Object adminRedisObject = (Object) redisTemplate.opsForHash().get(RedisKeys.ADMIN_KEY, email);
+//        Object adminRedisObject = (Object) redisTemplate.opsForHash().get(RedisKeys.ADMIN_KEY, email);
 
         LocalDateTime start = LocalDate.now().atStartOfDay();
         LocalDateTime end = LocalDate.now().plusDays(1).atStartOfDay();
@@ -154,8 +155,11 @@ public class AdminController {
     }
 
     @GetMapping("/login")
-    String adminLogin() {
+    public String adminLogin(String error, Model model) {
         System.out.println("admin login");
+        if (error != null){
+            model.addAttribute("error", "Your username and password is invalid.");
+        }
         return "admin/login";
     }
 
@@ -166,32 +170,16 @@ public class AdminController {
     }
 
     @GetMapping("/adminLogout")
-    ResponseEntity<String> adminLogout(HttpServletRequest request) {
-        String email = request.getParameter("email").trim();
-        Admin adminFromDB = adminRepository.findByEmail(email);
-        adminFromDB.setLoggedIn(false);
-        adminFromDB.setLastLogoutTime(LocalDateTime.now());
-        adminRepository.save(adminFromDB);
-        return ok("1");
-    }
-
-    @GetMapping("/loginAdmin")
-    ResponseEntity<String> loginAdmin(HttpServletRequest request) {
-        System.out.println("admin Login");
-        String email = request.getParameter("email").trim();
-        String password = request.getParameter("password").trim();
-        Admin adminFromDB = adminRepository.findByEmail(email);
-        if (adminFromDB == null) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    String adminLogout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            AdminPrincipal admin = (AdminPrincipal) auth.getPrincipal();
+            Admin adminFromDB = adminRepository.findByEmail(admin.getUsername());
+            adminFromDB.setLoggedIn(false);
+            adminRepository.save(adminFromDB);
+            new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        if (!adminFromDB.getPassword().equals(password)) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        adminFromDB.setLoggedIn(true);
-        adminFromDB.setLastLoginTime(LocalDateTime.now());
-        adminFromDB = adminRepository.save(adminFromDB);
-        redisTemplate.opsForHash().put(RedisKeys.ADMIN_KEY, adminFromDB.getEmail(), adminFromDB);
-        return ResponseEntity.ok("1");
+        return "redirect:/admin";
     }
 
     @PostMapping("/registerAdmin")
@@ -210,7 +198,6 @@ public class AdminController {
         admin.setType(AdminType.ADMIN);
         admin.setConfirmed(false);
         admin.setLoggedIn(true);
-        admin.setLastLoginTime(LocalDateTime.now());
         adminRepository.save(admin);
         return ok("1");
     }

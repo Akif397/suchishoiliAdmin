@@ -6,31 +6,51 @@
     <div class="row d-flex justify-content-center text-black">
         <h1>Login</h1>
     </div>
-    <div class="row">
-        <input type="email" class="form-control" id="admin_login_email"
-               placeholder="Email" required>
-    </div>
-    <br>
-    <div class="row">
-        <input type="password" class="form-control" id="admin_login_password"
-               placeholder="Password" required>
-    </div>
-    <br>
-    <div class="row d-flex justify-content-start form-check">
-        <input class="form-check-input" type="checkbox" id="admin_login_rememberme">
-        <label class="form-check-label" for="admin_login_rememberme">
-            Remember Me
-        </label>
-    </div>
-    <div class="row d-flex justify-content-center">
-        <button class="btn btn-outline-primary btn-sm" id="admin_login_submit"
-                onclick="adminLoginSubmit()">Login
-        </button>
-    </div>
-    <br>
-    <div class="row d-flex justify-content-end">
-        <a th:href="@{/register}">Create new admin account</a>
-    </div>
+    <form method="POST" th:action="@{/login}" class="form-signin">
+<!--        ${error != null ? 'has-error' : ''}-->
+        <div class="form-group">
+
+            <input name="username" type="text" class="form-control" placeholder="Email"
+                   autofocus="true"/>
+            <br>
+            <input name="password" type="password" class="form-control" placeholder="Password"/>
+            <br>
+            <span class="text-danger" th:if="${error != null}">Your username and password is invalid.</span>
+            <br>
+<!--            <h6 th:if="${error != null}" th.text="{error}"></h6>-->
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+        </div>
+
+    </form>
+
+
+<!--    <div class="row">-->
+<!--        <input type="email" class="form-control" id="admin_login_email"-->
+<!--               placeholder="Email" required>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <div class="row">-->
+<!--        <input type="password" class="form-control" id="admin_login_password"-->
+<!--               placeholder="Password" required>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <div class="row d-flex justify-content-start form-check">-->
+<!--        <input class="form-check-input" type="checkbox" id="admin_login_rememberme">-->
+<!--        <label class="form-check-label" for="admin_login_rememberme">-->
+<!--            Remember Me-->
+<!--        </label>-->
+<!--    </div>-->
+<!--    <div class="row d-flex justify-content-center">-->
+<!--        <button class="btn btn-outline-primary btn-sm" id="admin_login_submit"-->
+<!--                onclick="adminLoginSubmit()">Login-->
+<!--        </button>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <div class="row d-flex justify-content-end">-->
+<!--        <a th:href="@{/register}">Create new admin account</a>-->
+<!--    </div>-->
 </div>
 <script type="application/javascript" th:src="@{/js/admin.js}"></script>
 <script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>

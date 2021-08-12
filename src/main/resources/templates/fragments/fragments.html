@@ -24,8 +24,8 @@
                  class="mr-3 rounded-circle img-thumbnail shadow-sm">
             <div class="media-body">
                 <h4 class="m-0">Akif</h4>
-                <a onclick="adminLogout()" class="adminLogout"><i
-                        class="fas fa-sign-out-alt"></i>
+<!--                onclick="adminLogout()"-->
+                <a  class="adminLogout" th:href="@{/adminLogout}"><i class="fas fa-sign-out-alt"></i>
                     Logout</a>
             </div>
         </div>
@@ -34,49 +34,43 @@
     <ul class="nav flex-column bg-white mb-0">
         <li class="nav-item">
             <!--            th:href="@{/dashboard}"-->
-            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_dashboard" onclick="adminDashboard()">
+            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_dashboard" th:href="@{/dashboard}">
                 <i class="fal fa-chart-line mr-3 text-primary fa-fw"></i>
                 Dashboard
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_add_order"
-               onclick="adminAddOrder()">
+            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_add_order" th:href="@{/addOrder}">
                 <i class="fas fa-shopping-basket mr-3 text-primary fa-fw"></i>
                 Add Order
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_order_list"
-               onclick="adminOrderList()">
+            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_order_list" th:href="@{/orderList}">
                 <i class="fas fa-store mr-3 text-primary fa-fw"></i>
                 Order List
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_add_inventory"
-               onclick="adminAddInventory()">
+            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_add_inventory" th:href="@{/addInventory}">
                 <i class="fas fa-truck-loading mr-3 text-primary fa-fw"></i>
                 Add Inventory
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_inventory_list"
-               onclick="adminWatchInventory()">
+            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_inventory_list" th:href="@{/watchInventory}">
                 <i class="fas fa-warehouse mr-3 text-primary fa-fw"></i>
                 Watch Inventory
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_expense"
-               onclick="adminExpense()">
+            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_expense" th:href="@{/expense}">
                 <i class="fas fa-warehouse mr-3 text-primary fa-fw"></i>
                 Expense
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_add_category"
-               onclick="adminAddCategory()">
+            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_add_category" th:href="@{/addCategory}">
                 <i class="fas fa-shopping-basket mr-3 text-primary fa-fw"></i>
                 Add Category
             </a>

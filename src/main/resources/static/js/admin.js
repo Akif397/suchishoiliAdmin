@@ -1318,160 +1318,160 @@ function adminLogout() {
     });
 }
 
-function adminDashboard() {
-    let adminEmail = localStorage.getItem("email");
-    let url = "dashboard";
-    let value = {
-        email: adminEmail
-    };
-    $.ajax({
-        type: "GET",
-        url: url,
-        data: value,
-        dataType: 'json',
-        success: function (returnData) {
-            console.log(returnData);
-            // if (returnData === 1) {
-            //     let currentTime = new Date();
-            //     localStorage.setItem("email", "");
-            //     let redirectLocation = "http://" + location.host + "/admin";
-            //     window.location = redirectLocation;
-            // }
-        }
-    });
-}
-
-function adminLogout() {
-    let adminEmail = localStorage.getItem("email");
-    let url = "adminLogout";
-    let value = {
-        email: adminEmail
-    };
-    $.ajax({
-        type: "GET",
-        url: url,
-        data: value,
-        dataType: 'json',
-        success: function (returnData) {
-            if (returnData === 1) {
-                let currentTime = new Date();
-                localStorage.setItem("email", "");
-                let redirectLocation = "http://" + location.host + "/admin";
-                window.location = redirectLocation;
-            }
-        }
-    });
-}
-
-function adminLogout() {
-    let adminEmail = localStorage.getItem("email");
-    let url = "adminLogout";
-    let value = {
-        email: adminEmail
-    };
-    $.ajax({
-        type: "GET",
-        url: url,
-        data: value,
-        dataType: 'json',
-        success: function (returnData) {
-            if (returnData === 1) {
-                let currentTime = new Date();
-                localStorage.setItem("email", "");
-                let redirectLocation = "http://" + location.host + "/admin";
-                window.location = redirectLocation;
-            }
-        }
-    });
-}
-
-function adminLogout() {
-    let adminEmail = localStorage.getItem("email");
-    let url = "adminLogout";
-    let value = {
-        email: adminEmail
-    };
-    $.ajax({
-        type: "GET",
-        url: url,
-        data: value,
-        dataType: 'json',
-        success: function (returnData) {
-            if (returnData === 1) {
-                let currentTime = new Date();
-                localStorage.setItem("email", "");
-                let redirectLocation = "http://" + location.host + "/admin";
-                window.location = redirectLocation;
-            }
-        }
-    });
-}
-
-function adminLogout() {
-    let adminEmail = localStorage.getItem("email");
-    let url = "adminLogout";
-    let value = {
-        email: adminEmail
-    };
-    $.ajax({
-        type: "GET",
-        url: url,
-        data: value,
-        dataType: 'json',
-        success: function (returnData) {
-            if (returnData === 1) {
-                let currentTime = new Date();
-                localStorage.setItem("email", "");
-                let redirectLocation = "http://" + location.host + "/admin";
-                window.location = redirectLocation;
-            }
-        }
-    });
-}
-
-function adminLogout() {
-    let adminEmail = localStorage.getItem("email");
-    let url = "adminLogout";
-    let value = {
-        email: adminEmail
-    };
-    $.ajax({
-        type: "GET",
-        url: url,
-        data: value,
-        dataType: 'json',
-        success: function (returnData) {
-            if (returnData === 1) {
-                let currentTime = new Date();
-                localStorage.setItem("email", "");
-                let redirectLocation = "http://" + location.host + "/admin";
-                window.location = redirectLocation;
-            }
-        }
-    });
-}
-
-function adminLogout() {
-    let adminEmail = localStorage.getItem("email");
-    let url = "adminLogout";
-    let value = {
-        email: adminEmail
-    };
-    $.ajax({
-        type: "GET",
-        url: url,
-        data: value,
-        dataType: 'json',
-        success: function (returnData) {
-            if (returnData === 1) {
-                let currentTime = new Date();
-                localStorage.setItem("email", "");
-                let redirectLocation = "http://" + location.host + "/admin";
-                window.location = redirectLocation;
-            }
-        }
-    });
-}
+// function adminDashboard() {
+//     let adminEmail = localStorage.getItem("email");
+//     let url = "dashboard";
+//     let value = {
+//         email: adminEmail
+//     };
+//     $.ajax({
+//         type: "GET",
+//         url: url,
+//         data: value,
+//         dataType: 'json',
+//         success: function (returnData) {
+//             console.log(returnData);
+//             // if (returnData === 1) {
+//             //     let currentTime = new Date();
+//             //     localStorage.setItem("email", "");
+//             //     let redirectLocation = "http://" + location.host + "/admin";
+//             //     window.location = redirectLocation;
+//             // }
+//         }
+//     });
+// }
+//
+// function adminLogout() {
+//     let adminEmail = localStorage.getItem("email");
+//     let url = "adminLogout";
+//     let value = {
+//         email: adminEmail
+//     };
+//     $.ajax({
+//         type: "GET",
+//         url: url,
+//         data: value,
+//         dataType: 'json',
+//         success: function (returnData) {
+//             if (returnData === 1) {
+//                 let currentTime = new Date();
+//                 localStorage.setItem("email", "");
+//                 let redirectLocation = "http://" + location.host + "/admin";
+//                 window.location = redirectLocation;
+//             }
+//         }
+//     });
+// }
+//
+// function adminLogout() {
+//     let adminEmail = localStorage.getItem("email");
+//     let url = "adminLogout";
+//     let value = {
+//         email: adminEmail
+//     };
+//     $.ajax({
+//         type: "GET",
+//         url: url,
+//         data: value,
+//         dataType: 'json',
+//         success: function (returnData) {
+//             if (returnData === 1) {
+//                 let currentTime = new Date();
+//                 localStorage.setItem("email", "");
+//                 let redirectLocation = "http://" + location.host + "/admin";
+//                 window.location = redirectLocation;
+//             }
+//         }
+//     });
+// }
+//
+// function adminLogout() {
+//     let adminEmail = localStorage.getItem("email");
+//     let url = "adminLogout";
+//     let value = {
+//         email: adminEmail
+//     };
+//     $.ajax({
+//         type: "GET",
+//         url: url,
+//         data: value,
+//         dataType: 'json',
+//         success: function (returnData) {
+//             if (returnData === 1) {
+//                 let currentTime = new Date();
+//                 localStorage.setItem("email", "");
+//                 let redirectLocation = "http://" + location.host + "/admin";
+//                 window.location = redirectLocation;
+//             }
+//         }
+//     });
+// }
+//
+// function adminLogout() {
+//     let adminEmail = localStorage.getItem("email");
+//     let url = "adminLogout";
+//     let value = {
+//         email: adminEmail
+//     };
+//     $.ajax({
+//         type: "GET",
+//         url: url,
+//         data: value,
+//         dataType: 'json',
+//         success: function (returnData) {
+//             if (returnData === 1) {
+//                 let currentTime = new Date();
+//                 localStorage.setItem("email", "");
+//                 let redirectLocation = "http://" + location.host + "/admin";
+//                 window.location = redirectLocation;
+//             }
+//         }
+//     });
+// }
+//
+// function adminLogout() {
+//     let adminEmail = localStorage.getItem("email");
+//     let url = "adminLogout";
+//     let value = {
+//         email: adminEmail
+//     };
+//     $.ajax({
+//         type: "GET",
+//         url: url,
+//         data: value,
+//         dataType: 'json',
+//         success: function (returnData) {
+//             if (returnData === 1) {
+//                 let currentTime = new Date();
+//                 localStorage.setItem("email", "");
+//                 let redirectLocation = "http://" + location.host + "/admin";
+//                 window.location = redirectLocation;
+//             }
+//         }
+//     });
+// }
+//
+// function adminLogout() {
+//     let adminEmail = localStorage.getItem("email");
+//     let url = "adminLogout";
+//     let value = {
+//         email: adminEmail
+//     };
+//     $.ajax({
+//         type: "GET",
+//         url: url,
+//         data: value,
+//         dataType: 'json',
+//         success: function (returnData) {
+//             if (returnData === 1) {
+//                 let currentTime = new Date();
+//                 localStorage.setItem("email", "");
+//                 let redirectLocation = "http://" + location.host + "/admin";
+//                 window.location = redirectLocation;
+//             }
+//         }
+//     });
+// }
 
 function findDashboardDetails() {
     document.querySelector("#filteredDateDashboard").value = "";

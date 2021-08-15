@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset='UTF-8'>
-    <link rel="stylesheet" th:href="@{/css/boss.css}" >
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>
-        ShuchiShoili
-    </title>
+<head th:replace="fragments/fragments :: admin_header">
+    <!--    <meta charset='UTF-8'>-->
+    <!--    <link rel="stylesheet" th:href="@{/css/boss.css}" >-->
+    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    <!--    <title>-->
+    <!--        ShuchiShoili-->
+    <!--    </title>-->
 </head>
 <body>
-    <div class='boss_container'>
-        <div class='bose_logo'>Shuchishoili</div>
-        <!--<div class='boss_dashboard' onclick="boss_dashboard_clicked()">Dashboard</div>-->
-        <div class='boss_dashboard'><a th:href="@{/login}">Dashboard</a></div>
-        <div class='boss_web_setting' onclick="boss_web_setting_clicked()">Website Setting</div>
+<div class='admin_container'>
+    <div class='admin_logo'>
+        <div class="row media d-flex align-items-center">
+            <img th:src="@{'/images/logo_invoice.png'}" alt="..." class="card-img-top shadow-sm">
+        </div>
     </div>
+    <div class='admin_dashboard'><a th:href="@{/dashboard}">Dashboard</a></div>
+    <div class='admin_web_setting' onclick="boss_web_setting_clicked()">Website Setting</div>
+</div>
 
-<script type="application/javascript" th:src="@{/js/boss.js}" ></script>
+<script type="application/javascript" th:src="@{/js/boss.js}"></script>
 </body>
 </html>

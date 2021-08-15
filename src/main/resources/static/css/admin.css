@@ -4,6 +4,56 @@ body {
     overflow-x: hidden;
 }
 
+.admin_container {
+    position: absolute;
+    top: 20vh;
+    left: 40vw;
+    width: 20vw;
+    height: 50vh;
+    grid-template-columns: 10vw 10vw;
+    grid-template-rows: 35vh 15vh;
+    display: grid;
+    grid-template-areas: "admin_logo admin_logo" "admin_dashboard admin_web_setting";
+    background-color: #c6b297;
+}
+
+.admin_logo {
+    grid-area: admin_logo;
+    color: white;
+    font-family: 'Dancing Script', cursive;
+    justify-self: center;
+    align-self: center;
+    letter-spacing: .5vw;
+    font-size: 3vh;
+    font-weight: bolder;
+}
+
+.admin_dashboard {
+    grid-area: admin_dashboard;
+    text-decoration: none;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    justify-self: center;
+    align-self: center;
+    letter-spacing: .1vw;
+}
+
+.admin_web_setting {
+    grid-area: admin_web_setting;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    justify-self: center;
+    align-self: center;
+    letter-spacing: .1vw;
+}
+
+.admin_dashboard:hover,
+.admin_web_setting:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: .5s;
+}
+
 .vertical-nav {
     background-color: #c9c4c4;
     /* min-width: 20rem;
@@ -42,7 +92,7 @@ body {
     border-bottom: 1px dashed #fff;
 }
 
-.nav-item, #closeOrderDetailsDivOrderList, .adminLogout {
+.nav-item, #closeOrderDetailsDivOrderList, .adminLogout, #listImage, #detailsImage1, #detailsImage2, #detailsImage3, #detailsImage4 {
     cursor: pointer;
 }
 
@@ -184,7 +234,7 @@ body {
     visibility: visible;
 }
 
-#orderList.blur, #addOrder.blur, #addInventory.blur, #addCategory.blur {
+#orderList.blur, #addOrder.blur, #addInventory.blur, #addCategory.blur, #addImage.blur {
     filter: blur(50px);
     pointer-events: none;
 }

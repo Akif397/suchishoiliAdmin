@@ -1,7 +1,6 @@
 package com.example.suchishoiliWeb.suchishoili.component;
 
 import com.example.suchishoiliWeb.suchishoili.DAO.SteadFastResponseDAO;
-import com.example.suchishoiliWeb.suchishoili.SuchishoiliApplication;
 import com.example.suchishoiliWeb.suchishoili.fixedVariables.DeliveryAgent;
 import com.example.suchishoiliWeb.suchishoili.fixedVariables.DeliveryStatus;
 import com.example.suchishoiliWeb.suchishoili.model.Order;

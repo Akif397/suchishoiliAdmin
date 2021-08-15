@@ -51,7 +51,6 @@ var productsForOrder = [];
 let inventoryProductAddButton = document.querySelector("#inventoryProductSizeAddButton");
 let inventoryProductSizeSaveButton = document.querySelector("#inventoryProductSizeSaveButton");
 let inventoryProductSubcategory = document.querySelector("#inventoryProductSubcategory");
-let multipleSizesCheckbox = document.querySelector("#multipleSizesCheckbox");
 
 //variables for addorder.html
 // let add_order_discount = document.querySelector("#add_order_discount");
@@ -80,15 +79,6 @@ sidebar_expense.addEventListener("click", () => {
 
 sidebar_add_category.addEventListener("click", () => {
     display_admin_content(content_add_category.classList[0]);
-});
-
-//addInventory eventlisteners
-multipleSizesCheckbox.addEventListener("change", () => {
-    if (multipleSizesCheckbox.checked) {
-        console.log("Checked");
-    } else {
-        console.log("Not-checked");
-    }
 });
 
 inventoryProductSubcategory.addEventListener("change", () => {
@@ -283,7 +273,7 @@ function addInventorySubmitForm() {
     let subCategory = document.querySelector("#inventoryProductSubcategory").value;
     let productName = document.querySelector("#productName").value;
     let productDescription = document.querySelector("#productDescription").value;
-    let productSize = document.querySelector("#inventoryProductSizeSelect").value;
+    // let productSize = document.querySelector("#inventoryProductSizeSelect").value;
     let productPrize = document.querySelector("#productPrize").value;
 
     let url = "submitAddProduct";
@@ -292,7 +282,7 @@ function addInventorySubmitForm() {
         subCategory: subCategory,
         productName: productName,
         productDescription: productDescription,
-        productSize: productSize,
+        // productSize: productSize,
         productPrize: productPrize,
         // productQuantity: productQuantity
     }
@@ -323,11 +313,6 @@ function addInventorySubmitForm() {
         document.querySelector("#productPrize").focus();
         return;
     }
-    if (productSize === "Size") {
-        alert("Product Size Missing.")
-        document.querySelector("#inventoryProductSizeSelect").focus();
-        return;
-    }
 
     $.ajax({
         type: "POST",
@@ -338,50 +323,49 @@ function addInventorySubmitForm() {
             addInventory.classList.toggle("blur", false);
             loading.classList.toggle("show", false);
 
-            if (returnData === 1) {
-                let addSuccess = $('#successDiv');
-                addSuccess.toggleClass('show');
-                if (!multipleSizesCheckbox.checked) {
-                    document.querySelector("#inventoryProductCategory").options[0].selected = true;
-                    for (let i = document.querySelector("#inventoryProductSubcategory").options.length - 1; i > 0; i--) {
-                        document.querySelector("#inventoryProductSubcategory").options[i] = null;
-                    }
-                    document.querySelector("#inventoryProductSubcategory").options[0].selected = true;
-                    document.querySelector("#productName").value = "";
-                    document.querySelector("#productName").placeholder = "Enter a name";
-                    document.querySelector("#productDescription").value = "";
-                    document.querySelector("#productDescription").placeholder = "Description";
-                    document.querySelector("#productPrize").value = "";
-                    document.querySelector("#productPrize").placeholder = "Prize";
-                    for (let i = document.querySelector("#inventoryProductSizeSelect").options.length - 1; i > 0; i--) {
-                        document.querySelector("#inventoryProductSizeSelect").options[i] = null;
-                    }
-                    document.querySelector("#inventoryProductSizeSelect").options[0].selected = true;
-                } else {
-                    document.querySelector("#inventoryProductSizeSelect").options[0].selected = true;
-                }
-
-                // let productSizeSelect = document.querySelector("#inventoryProductSizeSelect");
-                // for (let i = 1; i < productSizeSelect.options.length; i++) {
-                //     productSizeSelect.options[i] = null;
-                // }
-            } else if (returnData === 0) {
-                let addDuplicateEntry = $('#duplicateEntryDiv');
-                addDuplicateEntry.toggleClass('show');
+            let addSuccess = document.querySelector("#successDiv");
+            addSuccess.classList.toggle('show', true);
+            // if (!multipleSizesCheckbox.checked) {
+            document.querySelector("#inventoryProductCategory").options[0].selected = true;
+            for (let i = document.querySelector("#inventoryProductSubcategory").options.length - 1; i > 0; i--) {
+                document.querySelector("#inventoryProductSubcategory").options[i] = null;
             }
+            document.querySelector("#inventoryProductSubcategory").options[0].selected = true;
+            document.querySelector("#productName").value = "";
+            document.querySelector("#productName").placeholder = "Enter a name";
+            document.querySelector("#productDescription").value = "";
+            document.querySelector("#productDescription").placeholder = "Description";
+            document.querySelector("#productPrize").value = "";
+            document.querySelector("#productPrize").placeholder = "Prize";
+            for (let i = document.querySelector("#inventoryProductSizeSelect").options.length - 1; i > 0; i--) {
+                document.querySelector("#inventoryProductSizeSelect").options[i] = null;
+            }
+            document.querySelector("#inventoryProductSizeSelect").options[0].selected = true;
         },
-        error: function (jq, status, message) {
+        error: function (jqXHR, exception) {
             addInventory.classList.toggle("blur", false);
             loading.classList.toggle("show", false);
 
-            alert('A jQuery error has occurred. Status: ' + status + ' - Message: ' + message);
+            if (jqXHR.status == 500) {
+                alert("Internal server error. Please contact with the IT team");
+                return;
+            } else if (jqXHR.status == 409) {
+                document.querySelector("#duplicateEntryDiv").classList.toggle("show", true);
+                return;
+            }
         }
+        // error: function (jq, status, message) {
+        //     addInventory.classList.toggle("blur", false);
+        //     loading.classList.toggle("show", false);
+        //
+        //     alert('A jQuery error has occurred. Status: ' + status + ' - Message: ' + message);
+        // }
     });
 }
 
 function addOrderSubmitForm() {
     let addOrder = document.querySelector("#addOrder");
-    let loading = document.querySelector("#loading");
+    let loading = document.querySelector("#loading-wrapper");
 
     addOrder.classList.toggle("blur", true);
     loading.classList.toggle("show", true);
@@ -506,6 +490,130 @@ function addOrderSubmitForm() {
     });
 }
 
+function readDetailsImage(input) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        var img = new Image;
+        img.onload = function () {
+            if (img.width > 570 || img.height > 765) {
+                alert("Image dimension doesn't match. Please, maintain 570*765 or less.");
+                document.querySelector("#" + input.id + "").focus();
+                input.value = null;
+                return
+            }
+        };
+        img.src = reader.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+}
+
+function readListImage(input) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        var img = new Image;
+        img.onload = function () {
+            if (img.width > 200 || img.height > 256) {
+                alert("Image dimension doesn't match. Please, maintain 200*256 or less.");
+                document.querySelector("#" + input.id + "").focus();
+                input.value = null;
+                return
+            }
+        };
+        img.src = reader.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+}
+
+function addImageSubmitForm() {
+    let category = document.querySelector("#CategoryAddImage").value;
+    let subcategory = document.querySelector("#SubcategoryAddImage").value;
+    let product = document.querySelector("#ProductAddImage").value;
+    let listImage = document.querySelector("#listImage").files[0];
+    let detailsImage1 = document.querySelector("#detailsImage1").files[0];
+    let detailsImage2 = document.querySelector("#detailsImage2").files[0];
+    let detailsImage3 = document.querySelector("#detailsImage3").files[0];
+    let detailsImage4 = document.querySelector("#detailsImage4").files[0];
+    if (category === "Select a category") {
+        alert("Select a Category.")
+        document.querySelector("#CategoryAddImage").focus();
+        return;
+    }
+    if (subcategory === "Select a sub-category") {
+        alert("Select a sub-category.")
+        document.querySelector("#SubcategoryAddImage").focus();
+        return;
+    }
+    if (product === "Select a product") {
+        alert("Select a product.")
+        document.querySelector("#ProductAddImage").focus();
+        return;
+    }
+    if (document.querySelector("#listImage").files.length === 0) {
+        alert("Select a list image.")
+        document.querySelector("#listImage").focus();
+        return;
+    }
+    if (document.querySelector("#detailsImage1").files.length === 0) {
+        alert("Select a details image.")
+        document.querySelector("#detailsImage1").focus();
+        return;
+    }
+    if (document.querySelector("#detailsImage2").files.length === 0) {
+        alert("Select a details image.")
+        document.querySelector("#detailsImage2").focus();
+        return;
+    }
+    if (document.querySelector("#detailsImage3").files.length === 0) {
+        alert("Select a details image.")
+        document.querySelector("#detailsImage3").focus();
+        return;
+    }
+    if (document.querySelector("#detailsImage4").files.length === 0) {
+        alert("Select a details image.")
+        document.querySelector("#detailsImage4").focus();
+        return;
+    }
+    let addImage = document.querySelector("#addImage");
+    let loading = document.querySelector("#loading-wrapper");
+
+    addImage.classList.toggle("blur", true);
+    loading.classList.toggle("show", true);
+    let form = $(this);
+    let url = "addImage";
+    var addImageForm = new FormData();
+    addImageForm.append("category", category);
+    addImageForm.append("subCategory", subcategory);
+    addImageForm.append("product", product);
+    addImageForm.append("listImage", listImage);
+    addImageForm.append("detailsImage1", detailsImage1);
+    addImageForm.append("detailsImage2", detailsImage2);
+    addImageForm.append("detailsImage3", detailsImage3);
+    addImageForm.append("detailsImage4", detailsImage4);
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: addImageForm,
+        dataType: "json",
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        success: function (returnData) {
+            addImage.classList.toggle("blur", false);
+            loading.classList.toggle("show", false);
+            form[0].reset();
+            let addSuccess = document.querySelector('#successDiv');
+            addSuccess.classList.toggle('show', true);
+        }, error: function (jqXHR, exception) {
+            addImage.classList.toggle("blur", false);
+            loading.classList.toggle("show", false);
+            if (jqXHR.status == 500) {
+                alert("Internal Server Error. Please contact with the IT team");
+                return;
+            }
+        }
+    });
+}
+
 //functions for addCategory.html
 function addCategorySubmitForm() {
     let addCategory = document.querySelector("#addCategory");
@@ -566,6 +674,7 @@ function resetWatchInventoryFilter() {
     category.disabled = false;
     subCategory.disabled = false;
 }
+
 
 function findSubcategory() {
     let url = "findSubCategory";
@@ -767,6 +876,35 @@ function findProductAddOrder() {
     });
 }
 
+function findProductAddImage() {
+    let url = "findProductBySubcategoryForAddingImage";
+    let subcategory = document.querySelector("#SubcategoryAddImage").value;
+    let value = {
+        subcategory: subcategory
+    }
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: value,
+        dataType: 'json',
+        success: function (returnData) {
+            console.log(returnData);
+            productsFromDB = returnData;
+            let productList = returnData;
+            let add_image_product = $('#ProductAddImage');
+
+            for (i = document.querySelector('#ProductAddImage').options.length - 1; i >= 1; i--) {
+                document.querySelector('#ProductAddImage').options[i] = null;
+            }
+            for (let i = 0; i < productList.length; i++) {
+                let name = productList[i].name;
+                add_image_product.append('<option value="' + name + '">' + name + '</option>');
+            }
+            document.querySelector("#ProductAddImage").options[0].selected = true;
+        }
+    });
+}
+
 function deleteSubcategory(subcategory) {
     let url = "deleteSubCategory";
     let value = {
@@ -779,9 +917,8 @@ function deleteSubcategory(subcategory) {
         data: value,
         dataType: 'json',
         success: function (returnData) {
-            console.log(returnData);
             let productSubCategoryTableBody = $("#productSubCategoryTableBody");
-            let productSubCategoryTableHTML = populateproductSubcategoryTable(returnData.subCategories);
+            let productSubCategoryTableHTML = populateproductSubcategoryTable(returnData);
             productSubCategoryTableBody.html(productSubCategoryTableHTML);
             let addSuccess = $('#successDiv');
             addSuccess.toggleClass('show');
@@ -933,77 +1070,6 @@ function detailsOrder(orderUniqueID) {
             break;
         }
     }
-    // let loading = document.querySelector("#loading-wrapper");
-    // let orderList = document.querySelector("#orderList");
-    //
-    // orderList.classList.toggle("blur", true);
-    // loading.classList.toggle("show", true);
-    //
-    // let url = "detailsOrder";
-    // let value = {
-    //     orderUniqueID: orderUniqueID
-    // }
-    // $.ajax({
-    //     type: "GET",
-    //     url: url,
-    //     data: value,
-    //     dataType: 'json',
-    //     success: function (returnData) {
-    //         let orderDetailsDivOrderList = document.querySelector("#orderDetailsDivOrderList");
-    //         loading.classList.toggle("show", false);
-    //         orderDetailsDivOrderList.classList.toggle("show", true);
-    //
-    //         let orderIDOrderList = document.querySelector(("#orderIDOrderList"));
-    //         let customerNameOrderList = document.querySelector(("#customerNameOrderList"));
-    //         let customerPhoneNumberOrderList = document.querySelector(("#customerPhoneNumberOrderList"));
-    //         let customerAddressOrderList = document.querySelector(("#customerAddressOrderList"));
-    //         let customerNoteOrderList = document.querySelector(("#customerNoteOrderList"));
-    //         let paymentStatusOrderList = document.querySelector(("#paymentStatusOrderList"));
-    //         let paymentMethodOrderList = document.querySelector(("#paymentMethodOrderList"));
-    //         let orderDiscountOrderList = document.querySelector(("#orderDiscountOrderList"));
-    //         let orderFromOrderList = document.querySelector(("#orderFromOrderList"));
-    //         let invoiceDownloadButton = document.querySelector("#invoiceDownloadButton");
-    //
-    //         for (let i = 0; i < ordersFromDB.length; i++) {
-    //             if (parseInt(orderUniqueID) === ordersFromDB[i].ordeUniqueID) {
-    //                 if (ordersFromDB[i].deliveryStatus === "ORDER_CANCEL") {
-    //                     invoiceDownloadButton.disabled = true;
-    //                 }
-    //                 orderIDOrderList.innerHTML = ordersFromDB[i].ordeUniqueID;
-    //                 customerNameOrderList.innerHTML = ordersFromDB[i].userDao.name;
-    //                 customerPhoneNumberOrderList.innerHTML = ordersFromDB[i].userDao.phone;
-    //                 customerAddressOrderList.innerHTML = ordersFromDB[i].userDao.address;
-    //                 if (ordersFromDB[i].orderNote === null) {
-    //                     customerNoteOrderList.innerHTML = "*";
-    //                 } else {
-    //                     customerNoteOrderList.innerHTML = ordersFromDB[i].orderNote;
-    //                 }
-    //                 populateProductTableOrderDetailsOrderList(ordersFromDB[i].productDaos, ordersFromDB[i].orderID);
-    //                 if (ordersFromDB[i].paymentStatus === "Unpaid") {
-    //                     paymentStatusOrderList.style.color = "#ff0000";
-    //                 } else if (ordersFromDB[i].paymentStatus === "Paid") {
-    //                     paymentStatusOrderList.style.color = "#08e243"
-    //                 }
-    //                 paymentStatusOrderList.innerHTML = ordersFromDB[i].paymentStatus;
-    //                 paymentMethodOrderList.innerHTML = ordersFromDB[i].paymentMethod;
-    //                 orderDiscountOrderList.innerHTML = ordersFromDB[i].orderDiscount;
-    //                 orderFromOrderList.innerHTML = ordersFromDB[i].orderFrom;
-    //                 break;
-    //             }
-    //         }
-    //     },
-    //     error: function (jqXHR, exception) {
-    //         loading.classList.toggle("show", false);
-    //         if (jqXHR.status == 401) {
-    //             alert("Unauthorized access for check delivery status. Please contact with the IT" +
-    //                 " team");
-    //             return;
-    //         } else if (jqXHR.status == 500) {
-    //             alert("Internal Server Error. Please contact with the IT team");
-    //             return;
-    //         }
-    //     }
-    // });
 }
 
 function populateProductTableOrderDetailsOrderList(productDao, orderID) {
@@ -1254,224 +1320,6 @@ function adminRegistrationSubmit() {
         }
     });
 }
-
-function adminLoginSubmit() {
-    let adminEmail = document.querySelector("#admin_login_email").value;
-    let adminPassword = document.querySelector("#admin_login_password").value;
-    if (adminEmail === "") {
-        alert("Please enter an email.");
-        document.querySelector("#admin_login_email").focus();
-        return;
-    }
-    if (adminPassword === "") {
-        alert("Please enter a password.");
-        document.querySelector("#admin_login_password").focus();
-        return;
-    }
-    let url = "loginAdmin";
-    let value = {
-        email: adminEmail,
-        password: adminPassword
-    }
-    $.ajax({
-        type: "GET",
-        url: url,
-        data: value,
-        dataType: 'json',
-        success: function (returnData) {
-            let currentTime = new Date();
-            localStorage.setItem("email", adminEmail);
-            let redirectLocation = "http://" + location.host + "/addOrder";
-            window.location = redirectLocation;
-        },
-        error: function (jqXHR, exception) {
-            if (jqXHR.status == 403) {
-                alert("User credentials doesn't match.");
-                return;
-            } else if (jqXHR.status == 401 ) {
-                alert("This user doesn't exist. PLease register.");
-                return;
-            }
-        }
-    });
-}
-
-function adminLogout() {
-    let adminEmail = localStorage.getItem("email");
-    let url = "adminLogout";
-    let value = {
-        email: adminEmail
-    };
-    $.ajax({
-        type: "GET",
-        url: url,
-        data: value,
-        dataType: 'json',
-        success: function (returnData) {
-            if (returnData === 1) {
-                let currentTime = new Date();
-                localStorage.setItem("email", "");
-                let redirectLocation = "http://" + location.host + "/admin";
-                window.location = redirectLocation;
-            }
-        }
-    });
-}
-
-// function adminDashboard() {
-//     let adminEmail = localStorage.getItem("email");
-//     let url = "dashboard";
-//     let value = {
-//         email: adminEmail
-//     };
-//     $.ajax({
-//         type: "GET",
-//         url: url,
-//         data: value,
-//         dataType: 'json',
-//         success: function (returnData) {
-//             console.log(returnData);
-//             // if (returnData === 1) {
-//             //     let currentTime = new Date();
-//             //     localStorage.setItem("email", "");
-//             //     let redirectLocation = "http://" + location.host + "/admin";
-//             //     window.location = redirectLocation;
-//             // }
-//         }
-//     });
-// }
-//
-// function adminLogout() {
-//     let adminEmail = localStorage.getItem("email");
-//     let url = "adminLogout";
-//     let value = {
-//         email: adminEmail
-//     };
-//     $.ajax({
-//         type: "GET",
-//         url: url,
-//         data: value,
-//         dataType: 'json',
-//         success: function (returnData) {
-//             if (returnData === 1) {
-//                 let currentTime = new Date();
-//                 localStorage.setItem("email", "");
-//                 let redirectLocation = "http://" + location.host + "/admin";
-//                 window.location = redirectLocation;
-//             }
-//         }
-//     });
-// }
-//
-// function adminLogout() {
-//     let adminEmail = localStorage.getItem("email");
-//     let url = "adminLogout";
-//     let value = {
-//         email: adminEmail
-//     };
-//     $.ajax({
-//         type: "GET",
-//         url: url,
-//         data: value,
-//         dataType: 'json',
-//         success: function (returnData) {
-//             if (returnData === 1) {
-//                 let currentTime = new Date();
-//                 localStorage.setItem("email", "");
-//                 let redirectLocation = "http://" + location.host + "/admin";
-//                 window.location = redirectLocation;
-//             }
-//         }
-//     });
-// }
-//
-// function adminLogout() {
-//     let adminEmail = localStorage.getItem("email");
-//     let url = "adminLogout";
-//     let value = {
-//         email: adminEmail
-//     };
-//     $.ajax({
-//         type: "GET",
-//         url: url,
-//         data: value,
-//         dataType: 'json',
-//         success: function (returnData) {
-//             if (returnData === 1) {
-//                 let currentTime = new Date();
-//                 localStorage.setItem("email", "");
-//                 let redirectLocation = "http://" + location.host + "/admin";
-//                 window.location = redirectLocation;
-//             }
-//         }
-//     });
-// }
-//
-// function adminLogout() {
-//     let adminEmail = localStorage.getItem("email");
-//     let url = "adminLogout";
-//     let value = {
-//         email: adminEmail
-//     };
-//     $.ajax({
-//         type: "GET",
-//         url: url,
-//         data: value,
-//         dataType: 'json',
-//         success: function (returnData) {
-//             if (returnData === 1) {
-//                 let currentTime = new Date();
-//                 localStorage.setItem("email", "");
-//                 let redirectLocation = "http://" + location.host + "/admin";
-//                 window.location = redirectLocation;
-//             }
-//         }
-//     });
-// }
-//
-// function adminLogout() {
-//     let adminEmail = localStorage.getItem("email");
-//     let url = "adminLogout";
-//     let value = {
-//         email: adminEmail
-//     };
-//     $.ajax({
-//         type: "GET",
-//         url: url,
-//         data: value,
-//         dataType: 'json',
-//         success: function (returnData) {
-//             if (returnData === 1) {
-//                 let currentTime = new Date();
-//                 localStorage.setItem("email", "");
-//                 let redirectLocation = "http://" + location.host + "/admin";
-//                 window.location = redirectLocation;
-//             }
-//         }
-//     });
-// }
-//
-// function adminLogout() {
-//     let adminEmail = localStorage.getItem("email");
-//     let url = "adminLogout";
-//     let value = {
-//         email: adminEmail
-//     };
-//     $.ajax({
-//         type: "GET",
-//         url: url,
-//         data: value,
-//         dataType: 'json',
-//         success: function (returnData) {
-//             if (returnData === 1) {
-//                 let currentTime = new Date();
-//                 localStorage.setItem("email", "");
-//                 let redirectLocation = "http://" + location.host + "/admin";
-//                 window.location = redirectLocation;
-//             }
-//         }
-//     });
-// }
 
 function findDashboardDetails() {
     document.querySelector("#filteredDateDashboard").value = "";

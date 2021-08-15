@@ -23,12 +23,14 @@ import java.util.List;
 public class OrderService {
     @Autowired
     SubcategorySizeRepository subcategorySizeRepository;
+
     @Autowired
     OrderProductSizeQuantityRepository orderProductSizeQuantityRepository;
+
     @Autowired
     OrderRepository orderRepository;
 
-    private Logger logger = LoggerFactory.getLogger(SuchishoiliApplication.class);
+    private Logger logger = LoggerFactory.getLogger(OrderService.class);
 
     public List<OrderDao> getOrdersForOrderList(List<Product> productList, List<Order> orderList) {
         List<OrderDao> orderDaoList = new LinkedList<>();
@@ -51,7 +53,7 @@ public class OrderService {
             List<ProductDao> producDaotList = new LinkedList<>();
             List<Long> longs = subcategorySizeRepository.findByOrders(orderFromDB.getId());
             for (Product product : productList) {
-                List<SubcategorySize> subcategorySizeList = product.getSizes();
+                List<SubcategorySize> subcategorySizeList = product.getProductSubcategory().getSubcategorySizes();
                 for (SubcategorySize size : subcategorySizeList) {
                     for (int i = 0; i < longs.size(); i++) {
                         if (longs.get(i) == size.getId()) {

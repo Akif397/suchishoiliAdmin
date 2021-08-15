@@ -2,23 +2,17 @@ package com.example.suchishoiliWeb.suchishoili.controller;
 
 import com.example.suchishoiliWeb.suchishoili.DAO.DashboardDao;
 import com.example.suchishoiliWeb.suchishoili.DAO.OrderDao;
-import com.example.suchishoiliWeb.suchishoili.fixedVariables.AdminType;
+import com.example.suchishoiliWeb.suchishoili.DAO.ProductDao;
+import com.example.suchishoiliWeb.suchishoili.DAO.SubcategorySizeDao;
+import com.example.suchishoiliWeb.suchishoili.fixedVariables.AdminFixedValue;
 import com.example.suchishoiliWeb.suchishoili.fixedVariables.DeliveryStatus;
-import com.example.suchishoiliWeb.suchishoili.fixedVariables.RedisKeys;
-import com.example.suchishoiliWeb.suchishoili.model.Admin;
-import com.example.suchishoiliWeb.suchishoili.model.Order;
-import com.example.suchishoiliWeb.suchishoili.model.Product;
-import com.example.suchishoiliWeb.suchishoili.model.ProductCategory;
+import com.example.suchishoiliWeb.suchishoili.model.*;
 import com.example.suchishoiliWeb.suchishoili.principal.AdminPrincipal;
-import com.example.suchishoiliWeb.suchishoili.repository.AdminRepository;
-import com.example.suchishoiliWeb.suchishoili.repository.OrderRepository;
-import com.example.suchishoiliWeb.suchishoili.repository.ProductCategoryRepository;
-import com.example.suchishoiliWeb.suchishoili.repository.ProductRepository;
+import com.example.suchishoiliWeb.suchishoili.repository.*;
 import com.example.suchishoiliWeb.suchishoili.service.AdminService;
 import com.example.suchishoiliWeb.suchishoili.service.OrderService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,27 +25,39 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
 
 @Controller
+@ComponentScan(basePackages = {"com.example.suchishoiliWeb.suchishoili.service"})
 public class AdminController {
     @Autowired
     AdminRepository adminRepository;
+
     @Autowired
     ProductCategoryRepository productCategoryRepository;
+
     @Autowired
     ProductRepository productRepository;
+
     @Autowired
     OrderRepository orderRepository;
+
     @Autowired
     OrderService orderService;
+
     @Autowired
     AdminService adminService;
+
+    @Autowired
+    SubcategorySizeRepository subcategorySizeRepository;
+
 //    @Qualifier("redisTemplate")
 //    @Autowired
 //    RedisTemplate redisTemplate;
@@ -62,7 +68,10 @@ public class AdminController {
     }
 
     @GetMapping("/addOrder")
-    public String viewAddOrder(ProductCategory category, Model model) {
+    public String viewAddOrder(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AdminPrincipal admin = (AdminPrincipal) auth.getPrincipal();
+        model.addAttribute("email", admin.getUsername());
         List<ProductCategory> allCategory = productCategoryRepository.findAll();
         model.addAttribute("categoryList", allCategory);
         return "admin/addOrder";
@@ -73,6 +82,9 @@ public class AdminController {
 //        String email = request.getParameter("email").trim();
 //        Todo todoFromRedis = (Todo) template.opsForHash().get(REDIS_CACHE_HASH, idLong);
 //        Object adminRedisObject = (Object) redisTemplate.opsForHash().get(RedisKeys.ADMIN_KEY, email);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AdminPrincipal admin = (AdminPrincipal) auth.getPrincipal();
+        model.addAttribute("email", admin.getUsername());
 
         LocalDateTime start = LocalDate.now().atStartOfDay();
         LocalDateTime end = LocalDate.now().plusDays(1).atStartOfDay();
@@ -110,31 +122,67 @@ public class AdminController {
 
     @GetMapping("/watchInventory")
     public String viewWatchInventory(Model model) {
-        System.out.println("admin watchInventory");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AdminPrincipal admin = (AdminPrincipal) auth.getPrincipal();
+        model.addAttribute("email", admin.getUsername());
         List<Product> products = productRepository.findAll();
+        List<ProductDao> productDaos = new LinkedList<>();
+        for (Product product : products) {
+            List<SubcategorySize> sizes =
+                    subcategorySizeRepository.findBySubcategory(product.getProductSubcategory().getId());
+            List<SubcategorySizeDao> subcategorySizeDaoList = new LinkedList<>();
+            for (SubcategorySize size : sizes) {
+                SubcategorySizeDao sizeDao = new SubcategorySizeDao();
+                sizeDao.setId(size.getId());
+                sizeDao.setSize(size.getSize());
+                subcategorySizeDaoList.add(sizeDao);
+            }
+            ProductDao productDao = new ProductDao();
+            productDao.setName(product.getName());
+            productDao.setPrize(product.getPrize());
+            productDao.setSubcategorySizeDaoList(subcategorySizeDaoList);
+            productDaos.add(productDao);
+        }
         List<ProductCategory> categories = productCategoryRepository.findAll();
-        model.addAttribute("productList", products);
+        model.addAttribute("productList", productDaos);
         model.addAttribute("categoryList", categories);
         return "admin/watchInventory";
     }
 
     @GetMapping("/expense")
-    public String viewExpense() {
-        System.out.println("admin expense");
+    public String viewExpense(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AdminPrincipal admin = (AdminPrincipal) auth.getPrincipal();
+        model.addAttribute("email", admin.getUsername());
         return "admin/expense";
     }
 
     @GetMapping("/addCategory")
     public String viewAddCategory(ProductCategory productCategory, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AdminPrincipal admin = (AdminPrincipal) auth.getPrincipal();
+        model.addAttribute("email", admin.getUsername());
         List<ProductCategory> allCategory = productCategoryRepository.findAll();
         model.addAttribute("categoryList", allCategory);
-        System.out.println("admin addCategory");
         return "admin/addCategory";
+    }
+
+    @GetMapping("/addImage")
+    public String viewAddImage(ProductCategory productCategory, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AdminPrincipal admin = (AdminPrincipal) auth.getPrincipal();
+        model.addAttribute("email", admin.getUsername());
+        List<ProductCategory> allCategory = productCategoryRepository.findAll();
+        model.addAttribute("categoryList", allCategory);
+        return "admin/addImage";
     }
 
     @GetMapping("/addInventory")
     public String viewAddInventory(Product product, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AdminPrincipal admin = (AdminPrincipal) auth.getPrincipal();
         List<ProductCategory> allCategory = productCategoryRepository.findAll();
+        model.addAttribute("email", admin.getUsername());
         model.addAttribute("categoryList", allCategory);
         System.out.println("admin addInventory");
         return "admin/addInventory";
@@ -142,7 +190,9 @@ public class AdminController {
 
     @GetMapping("/orderList")
     public String viewOrderList(Order order, Model model) {
-        System.out.println("admin orderList");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AdminPrincipal admin = (AdminPrincipal) auth.getPrincipal();
+        model.addAttribute("email", admin.getUsername());
         List<Product> productList = productRepository.findAll();
         LocalDate now = LocalDate.now();
         LocalDateTime startTime = now.atStartOfDay();
@@ -157,7 +207,7 @@ public class AdminController {
     @GetMapping("/login")
     public String adminLogin(String error, Model model) {
         System.out.println("admin login");
-        if (error != null){
+        if (error != null) {
             model.addAttribute("error", "Your username and password is invalid.");
         }
         return "admin/login";
@@ -172,7 +222,7 @@ public class AdminController {
     @GetMapping("/adminLogout")
     String adminLogout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+        if (auth != null) {
             AdminPrincipal admin = (AdminPrincipal) auth.getPrincipal();
             Admin adminFromDB = adminRepository.findByEmail(admin.getUsername());
             adminFromDB.setLoggedIn(false);
@@ -195,8 +245,8 @@ public class AdminController {
         admin.setName(name);
         admin.setEmail(email);
         admin.setPassword(password);
-        admin.setType(AdminType.ADMIN);
-        admin.setConfirmed(false);
+        admin.setType(AdminFixedValue.ADMIN_TYPE);
+        admin.setConfirmed(true);
         admin.setLoggedIn(true);
         adminRepository.save(admin);
         return ok("1");

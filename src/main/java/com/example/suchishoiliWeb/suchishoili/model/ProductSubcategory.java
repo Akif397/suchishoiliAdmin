@@ -24,14 +24,14 @@ public class ProductSubcategory {
 
     @OneToMany(targetEntity = SubcategorySize.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "sc_fk", referencedColumnName = "id")
-    private List<SubcategorySize> sizesAndQuantities;
+    private List<SubcategorySize> subcategorySizes;
 
-    public List<SubcategorySize> getProductSizesAndQuantities() {
-        return sizesAndQuantities;
+    public List<SubcategorySize> getSubcategorySizes() {
+        return subcategorySizes;
     }
 
-    public void setProductSizesAndQuantities(List<SubcategorySize> sizesAndQuantities) {
-        this.sizesAndQuantities = sizesAndQuantities;
+    public void setSubcategorySizes(List<SubcategorySize> sizes) {
+        this.subcategorySizes = sizes;
     }
 
     public long getId() {

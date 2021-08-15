@@ -23,10 +23,15 @@
                  height="80"
                  class="mr-3 rounded-circle img-thumbnail shadow-sm">
             <div class="media-body">
-                <h4 class="m-0">Akif</h4>
-<!--                onclick="adminLogout()"-->
-                <a  class="adminLogout" th:href="@{/adminLogout}"><i class="fas fa-sign-out-alt"></i>
-                    Logout</a>
+                <h4 class="m-0" th:text="${email}"></h4>
+                <div class="row">
+                    <a class="adminPage" th:href="@{/admin}"><i class="fas fa-home"></i>
+                        Home</a>
+                </div>
+                <div class="row">
+                    <a class="adminLogout" th:href="@{/adminLogout}"><i class="fas fa-sign-out-alt"></i>
+                        Logout</a>
+                </div>
             </div>
         </div>
     </div>
@@ -58,7 +63,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_inventory_list" th:href="@{/watchInventory}">
+            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_inventory_list"
+               th:href="@{/watchInventory}">
                 <i class="fas fa-warehouse mr-3 text-primary fa-fw"></i>
                 Watch Inventory
             </a>
@@ -73,6 +79,12 @@
             <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_add_category" th:href="@{/addCategory}">
                 <i class="fas fa-shopping-basket mr-3 text-primary fa-fw"></i>
                 Add Category
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark text-uppercase bg-light" id="sidebar_add_image" th:href="@{/addImage}">
+                <i class="fas fa-images mr-3 text-primary fa-fw"></i>
+                Add Image
             </a>
         </li>
     </ul>

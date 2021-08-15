@@ -17,8 +17,8 @@ public class Product {
     @Column(nullable = false, length = 500)
     private String description;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<SubcategorySize> sizes;
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<SubcategorySize> sizes;
 
     @Column(nullable = false, length = 20)
     private int prize;
@@ -29,6 +29,17 @@ public class Product {
 
     @Column(nullable = false, length = 100)
     private LocalDateTime createDate;
+
+    @Column(nullable = false)
+    private boolean is_image_added;
+
+    public boolean isIs_image_added() {
+        return is_image_added;
+    }
+
+    public void setIs_image_added(boolean is_image_added) {
+        this.is_image_added = is_image_added;
+    }
 
     public LocalDateTime getCreateDate() {
         return createDate;
@@ -62,13 +73,13 @@ public class Product {
         this.description = description;
     }
 
-    public List<SubcategorySize> getSizes() {
-        return sizes;
-    }
-
-    public void setSizes(List<SubcategorySize> sizesAndQuantities) {
-        this.sizes = sizesAndQuantities;
-    }
+//    public List<SubcategorySize> getSizes() {
+//        return sizes;
+//    }
+//
+//    public void setSizes(List<SubcategorySize> sizesAndQuantities) {
+//        this.sizes = sizesAndQuantities;
+//    }
 
     public int getPrize() {
         return prize;

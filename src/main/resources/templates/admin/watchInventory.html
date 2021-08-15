@@ -18,7 +18,8 @@
                     <div class="col-md-4 col-lg-4">
                         <div class="form-group">
                             <select class="form-control" id="productCategoryWatchInventorySelect"
-                                    onchange="findSubcategoryForWatchInventory('productCategoryWatchInventorySelect', 'productSubcategoryWatchInventorySelect')">
+                                    onchange="findSubcategoryForWatchInventory('productCategoryWatchInventorySelect',
+                                    'productSubcategoryWatchInventorySelect')">
                                 <option selected="true" disabled>Select a category</option>
                                 <option th:each="products_category : ${categoryList}"
                                         th:value="${products_category.category}"
@@ -62,30 +63,16 @@
                 <td th:text="${product.prize}" class="text-warning font-weight-bold"/>
                 <td>
                     <table class="table table-hover table-dark table-borderless">
-                        <tr th:each="productSize : ${product.sizes}">
+                        <tr th:each="productSize : ${product.subcategorySizeDaoList}">
                             <td th:text="${productSize.size}"></td>
                         </tr>
                     </table>
                 </td>
-                <!--						<td>-->
-                <!--							<table class="table table-hover table-dark table-borderless">-->
-                <!--								<tr th:each="productSizeAndQuantity : ${product.sizesAndQuantities}">-->
-                <!--									<td th:text="${productSizeAndQuantity.quantity}"></td>-->
-                <!--								</tr>-->
-                <!--							</table>-->
-                <!--						</td>-->
                 <td>
                     <table class="table table-hover table-dark table-borderless">
-                        <tr th:each="productSize : ${product.sizes}">
+                        <tr th:each="productSize : ${product.subcategorySizeDaoList}">
                             <td>
                                 <div class="row">
-<!--                                    <div class="col-md-6 col-lg-6">-->
-<!--                                        <button type="button" class="btn btn-outline-danger btn-sm"-->
-<!--                                                th:data-id="${productSize.id}"-->
-<!--                                                onclick="deleteProduct(this.getAttribute('data-id'))">-->
-<!--                                            Remove-->
-<!--                                        </button>-->
-<!--                                    </div>-->
                                     <div class="col-md-12 col-lg-12">
                                         <button type="button" class="btn btn-outline-warning btn-sm"
                                                 th:data-id="${productSize.id}"
@@ -120,6 +107,13 @@
 <script type="application/javascript" th:src="@{/js/admin.js}"></script>
 <script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>
 <script type="application/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    var productSFromDB = /*[[${productList}]]*/ 'default';
+
+    /*]]>*/
+</script>
 </body>
 
 </html>

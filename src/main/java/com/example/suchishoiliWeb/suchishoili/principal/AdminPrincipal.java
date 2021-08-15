@@ -1,6 +1,6 @@
 package com.example.suchishoiliWeb.suchishoili.principal;
 
-import com.example.suchishoiliWeb.suchishoili.fixedVariables.AdminType;
+import com.example.suchishoiliWeb.suchishoili.fixedVariables.AdminFixedValue;
 import com.example.suchishoiliWeb.suchishoili.model.Admin;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +19,7 @@ public class AdminPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(AdminType.ADMIN));
+        return Collections.singleton(new SimpleGrantedAuthority(AdminFixedValue.ADMIN_TYPE));
     }
 
     @Override

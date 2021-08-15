@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/fragments :: admin_header">
+</head>
+
+<body>
+<div id="addImage">
+    <div th:replace="fragments/fragments :: admin_sidebar"></div>
+
+    <div class="page-content p-2" id="content">
+        <div class="col-md-12 col-lg-12">
+            <h2>Add Image</h2>
+        </div>
+        <div class="col-md-12 col-lg-12">
+            <!--            th:action="@{/addImage}" enctype="multipart/form-data"-->
+            <!--            <form id="add_image_form">-->
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <!--                        onchange="findSubcategory()"-->
+                    <div class="form-group">
+                        <label for="CategoryAddImage">Category</label>
+                        <select class="form-control" id="CategoryAddImage" name="CategoryAddImage"
+                                onchange="findSubcategoryFor('CategoryAddImage',
+                                    'SubcategoryAddImage')">
+                            <option selected="true" disabled>Select a category</option>
+                            <option th:each="products_category : ${categoryList}"
+                                    th:value="${products_category.category}"
+                                    th:text="${products_category.category}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="SubcategoryAddImage">Sub-category</label>
+                        <select class="form-control" id="SubcategoryAddImage" name="SubcategoryAddImage"
+                                onchange="findProductAddImage()">
+                            <option selected="true" disabled>Select a sub-category</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ProductAddImage">Product</label>
+                        <select class="form-control" id="ProductAddImage" name="ProductAddImage">
+                            <option selected="true" disabled>Select a product</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="listImage" class="font-weight-bold">Image for list. Image Size should be
+                            200*256</label>
+                        <input type="file" class="form-control-file border border-warning" id="listImage" name="listImage"
+                               onchange="readListImage(this)" accept="image/png, image/jpeg">
+                        <!--                        <img th:src="@{'/images/FC/FC1.jpg'}" alt="..." class="img-thumbnail">-->
+                    </div>
+                    <div class="form-group">
+                        <label for="detailsImage1" class="font-weight-bold">Image for details. Image Size should
+                            be 570*765</label>
+                        <input type="file" class="form-control-file border border-warning" id="detailsImage1" name="detailsImage1"
+                               onchange="readDetailsImage(this)" accept="image/png, image/jpeg">
+                    </div>
+                    <div class="form-group">
+                        <label for="detailsImage2" class="font-weight-bold">Image for details. Image Size should
+                            be 570*765</label>
+                        <input type="file" class="form-control-file border border-warning" id="detailsImage2" name="detailsImage2"
+                               onchange="readDetailsImage(this)" accept="image/png, image/jpeg">
+                    </div>
+                    <div class="form-group">
+                        <label for="detailsImage3" class="font-weight-bold">Image for details. Image Size should
+                            be 570*765</label>
+                        <input type="file" class="form-control-file border border-warning" id="detailsImage3" name="detailsImage3"
+                               onchange="readDetailsImage(this)" accept="image/pngf, image/jpeg">
+                    </div>
+                    <div class="form-group">
+                        <label for="detailsImage4" class="font-weight-bold">Image for details. Image Size should
+                            be 570*765</label>
+                        <input type="file" class="form-control-file border border-warning" id="detailsImage4" name="detailsImage4"
+                               onchange="readDetailsImage(this)" accept="image/png, image/jpeg">
+                    </div>
+                    <div class="form-group d-flex justify-content-center">
+                        <!--                            <input type="submit" value="Upload Images">-->
+                        <button type="submit" class="btn btn-primary" id="add_inventory_submit"
+                                onclick="addImageSubmitForm()">Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--            </form>-->
+        </div>
+        <div th:replace="fragments/fragments :: success"></div>
+        <div th:replace="fragments/fragments :: fail"></div>
+    </div>
+</div>
+<div th:replace="fragments/fragments :: loading"></div>
+
+<script type="application/javascript" th:src="@{/js/admin.js}"></script>
+<script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="application/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

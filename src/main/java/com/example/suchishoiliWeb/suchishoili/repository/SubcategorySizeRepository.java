@@ -13,6 +13,9 @@ import java.util.List;
 public interface SubcategorySizeRepository extends JpaRepository<SubcategorySize, Long>{
 	SubcategorySize findBySize(String size);
 
+	@Query(value = "SELECT ps.* FROM product_size ps WHERE ps.sc_fk = ?1", nativeQuery =	true)
+	List<SubcategorySize> findBySubcategory(Long subcategoryId);
+
 	@Query(value = "SELECT ps.* FROM product_size ps WHERE ps.size = ?1 AND ps.sc_fk = ?2",
 			nativeQuery =	true)
 	SubcategorySize findBySizeAndSubcategoryId(String size, Long subcategoryId);

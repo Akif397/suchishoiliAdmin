@@ -75,7 +75,7 @@ public class OrderController {
     @Autowired
     SteadFastService steadFastService;
 
-    private Logger logger = LoggerFactory.getLogger(SuchishoiliApplication.class);
+    private Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @GetMapping("/cancelOrder")
     public ResponseEntity<String> cancelOrder(HttpServletRequest request) {
@@ -269,7 +269,7 @@ public class OrderController {
             int productDiscount = Integer.parseInt(String.valueOf(productsJSON.getJSONObject(i).get("discount")));
 
             Product product = productRepository.findByIdAndName(productID, productName);
-            List<SubcategorySize> subcategorySizeList = product.getSizes();
+            List<SubcategorySize> subcategorySizeList = product.getProductSubcategory().getSubcategorySizes();
             SubcategorySize subcategorySize = null;
             for (SubcategorySize size : subcategorySizeList) {
                 if (size.getSize().toLowerCase().equals(productSize.toLowerCase())) {

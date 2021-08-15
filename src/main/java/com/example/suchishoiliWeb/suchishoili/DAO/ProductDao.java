@@ -7,9 +7,19 @@ public class ProductDao {
     private Long productSizeID;
     private String name;
     private List<String> sizes;
+    //this is just for watchInventory
+    private List<SubcategorySizeDao> subcategorySizeDaoList;
     private int prize;
     private List<Integer> quantities;
     private int orderDiscount;
+
+    public List<SubcategorySizeDao> getSubcategorySizeDaoList() {
+        return subcategorySizeDaoList;
+    }
+
+    public void setSubcategorySizeDaoList(List<SubcategorySizeDao> subcategorySizeDaoList) {
+        this.subcategorySizeDaoList = subcategorySizeDaoList;
+    }
 
     public Long getProductSizeID() {
         return productSizeID;

@@ -36,25 +36,6 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="productName">Name</label>
-                        <input type="text" class="form-control" id="productName"
-                               placeholder="Enter a name">
-                    </div>
-                    <div class="form-group">
-                        <label for="productDescription">Description</label>
-                        <textarea class="form-control" id="productDescription" rows="3"
-                                  placeholder="Description"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="productPrize">Prize</label>
-                        <input type="number" class="form-control" id="productPrize"
-                               placeholder="Prize">
-                    </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="multipleSizesCheckbox">
-                        <label for="multipleSizesCheckbox">Add Multiple Sizes</label>
-                    </div>
-                    <div class="form-group">
                         <div class="row">
                             <div class="col-md-4 col-lg-4">
                                 <div class="form-group">
@@ -86,78 +67,27 @@
 
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="productName">Name</label>
+                        <input type="text" class="form-control" id="productName"
+                               placeholder="Enter a name">
+                    </div>
+                    <div class="form-group">
+                        <label for="productDescription">Description</label>
+                        <textarea class="form-control" id="productDescription" rows="3"
+                                  placeholder="Description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrize">Prize</label>
+                        <input type="number" class="form-control" id="productPrize"
+                               placeholder="Prize">
+                    </div>
+                    <!--                    <div class="form-group form-check">-->
+                    <!--                        <input type="checkbox" class="form-check-input" id="multipleSizesCheckbox">-->
+                    <!--                        <label for="multipleSizesCheckbox">Add Multiple Sizes</label>-->
+                    <!--                    </div>-->
+
                 </div>
-                <!--<div class="col-lg-8">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="productViewImage1">Product View Image 1</label>
-                                <input type="file" class="form-control-file" id="productViewImage1">
-                                <img th:src="@{'/images/FC/FC1.jpg'}" alt="..." class="img-thumbnail">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="productViewImage2">Product View Image 2</label>
-                                <input type="file" class="form-control-file" id="productViewImage2">
-                                <img th:src="@{'/images/FC/FC2.jpg'}" alt="..." class="img-thumbnail">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="productDetailsImage1">Product Details Image 1</label>
-                                <input type="file" class="form-control-file" id="productDetailsImage1">
-                                <img th:src="@{'/images/FC/FC3.jpg'}" alt="..." class="img-thumbnail">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="productViewImage1">Product View Image 1</label>
-                                <input type="file" class="form-control-file" id="productViewImage1">
-                                <img th:src="@{'/images/FC/FC1.jpg'}" alt="..." class="img-thumbnail">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="productViewImage2">Product View Image 2</label>
-                                <input type="file" class="form-control-file" id="productViewImage2">
-                                <img th:src="@{'/images/FC/FC2.jpg'}" alt="..." class="img-thumbnail">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="productDetailsImage1">Product Details Image 1</label>
-                                <input type="file" class="form-control-file" id="productDetailsImage1">
-                                <img th:src="@{'/images/FC/FC3.jpg'}" alt="..." class="img-thumbnail">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="productViewImage1">Product View Image 1</label>
-                                <input type="file" class="form-control-file" id="productViewImage1">
-                                <img th:src="@{'/images/FC/FC1.jpg'}" alt="..." class="img-thumbnail">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="productViewImage2">Product View Image 2</label>
-                                <input type="file" class="form-control-file" id="productViewImage2">
-                                <img th:src="@{'/images/FC/FC2.jpg'}" alt="..." class="img-thumbnail">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="productDetailsImage1">Product Details Image 1</label>
-                                <input type="file" class="form-control-file" id="productDetailsImage1">
-                                <img th:src="@{'/images/FC/FC3.jpg'}" alt="..." class="img-thumbnail">
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
             </div>
             <div class="col-md-12 col-lg-12 d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary" id="add_inventory_submit"
@@ -165,9 +95,7 @@
                 </button>
 
             </div>
-            <!--			</form>-->
         </div>
-        <!--</div>-->
         <div th:replace="fragments/fragments :: success"></div>
         <div th:replace="fragments/fragments :: fail"></div>
         <div th:replace="fragments/fragments :: duplicateEntry"></div>

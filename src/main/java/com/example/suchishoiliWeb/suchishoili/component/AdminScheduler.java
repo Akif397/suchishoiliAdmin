@@ -1,6 +1,6 @@
 package com.example.suchishoiliWeb.suchishoili.component;
 
-import com.example.suchishoiliWeb.suchishoili.DAO.SteadFastResponseDAO;
+import com.example.suchishoiliWeb.suchishoili.DAO.SteadFastResponseDao;
 import com.example.suchishoiliWeb.suchishoili.fixedVariables.DeliveryAgent;
 import com.example.suchishoiliWeb.suchishoili.fixedVariables.DeliveryStatus;
 import com.example.suchishoiliWeb.suchishoili.model.Order;
@@ -36,7 +36,7 @@ public class AdminScheduler {
                 orderRepository.findByDeliveryStatusIsNotAndOrderDateAndtimeBetweenAndOrderDeliveryAgent(
                         DeliveryStatus.DELIVERED, start, now, DeliveryAgent.STEADFAST);
         for (Order order : orderList) {
-            SteadFastResponseDAO steadFastResponseDAO = null;
+            SteadFastResponseDao steadFastResponseDAO = null;
             try {
                 steadFastResponseDAO =
                         steadFastService.checking_delivery_status(String.valueOf(order.getOrderUniqueID()));

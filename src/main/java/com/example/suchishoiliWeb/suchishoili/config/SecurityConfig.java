@@ -24,12 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/addInventory", "/orderList", "/addImage", "/admin").hasAuthority(AdminFixedValue.ADMIN_TYPE)
                 .antMatchers(HttpMethod.GET, "/register", "/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/submitAddCategory", "/submitAddProduct").hasAuthority(AdminFixedValue.ADMIN_TYPE)
-                .and().formLogin().loginPage("/login")
+                .and().formLogin().loginPage("/")
 //                .loginProcessingUrl("/loginAdmin")
                 .defaultSuccessUrl("/admin")
-                .failureUrl("/login?error").permitAll()
+                .failureUrl("/?error").permitAll()
                 .and().logout().logoutUrl("/adminLogout")
-                .logoutSuccessUrl("/admin");
+                .logoutSuccessUrl("/");
     }
 
     @Bean

@@ -1,8 +1,7 @@
 package com.example.suchishoiliWeb.suchishoili.controller;
 
 import com.example.suchishoiliWeb.suchishoili.DAO.OrderDao;
-import com.example.suchishoiliWeb.suchishoili.DAO.SteadFastResponseDAO;
-import com.example.suchishoiliWeb.suchishoili.SuchishoiliApplication;
+import com.example.suchishoiliWeb.suchishoili.DAO.SteadFastResponseDao;
 import com.example.suchishoiliWeb.suchishoili.fixedVariables.DeliveryAgent;
 import com.example.suchishoiliWeb.suchishoili.fixedVariables.DeliveryCharge;
 import com.example.suchishoiliWeb.suchishoili.fixedVariables.DeliveryStatus;
@@ -320,7 +319,7 @@ public class OrderController {
             }
         }
         if (orderFromDB.getOrderDeliveryAgent().equals(DeliveryAgent.STEADFAST)){
-            SteadFastResponseDAO steadFastResponseDAO = null;
+            SteadFastResponseDao steadFastResponseDAO = null;
             try {
                 steadFastResponseDAO =
                         steadFastService.order_create(String.valueOf(orderFromDB.getOrderUniqueID()),
@@ -347,7 +346,7 @@ public class OrderController {
     public ResponseEntity<String> checkDeliveryStatus(HttpServletRequest request) {
         String orderUniqueID = request.getParameter("orderUniqueID").trim();
         Long invoiceID = Long.parseLong(orderUniqueID);
-        SteadFastResponseDAO responseDAO = null;
+        SteadFastResponseDao responseDAO = null;
         try {
             responseDAO = steadFastService.checking_delivery_status(orderUniqueID);
 //            responseDAO = steadFastService.get_balance();

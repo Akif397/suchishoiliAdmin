@@ -45,6 +45,7 @@ body {
     justify-self: center;
     align-self: center;
     letter-spacing: .1vw;
+    pointer-events: none;
 }
 
 .admin_dashboard:hover,

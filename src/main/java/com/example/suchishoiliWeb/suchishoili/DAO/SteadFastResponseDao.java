@@ -1,6 +1,6 @@
 package com.example.suchishoiliWeb.suchishoili.DAO;
 
-public class SteadFastResponseDAO {
+public class SteadFastResponseDao {
     private int status;
     private String message;
     private SteadFastConsignmentDao consignment;

@@ -1,8 +1,8 @@
 package com.example.suchishoiliWeb.suchishoili.service;
 
-import com.example.suchishoiliWeb.suchishoili.DAO.OrderDaoForSteadFast;
+import com.example.suchishoiliWeb.suchishoili.DAO.SteadFastOrderDao;
 import com.example.suchishoiliWeb.suchishoili.DAO.SteadFastConsignmentDao;
-import com.example.suchishoiliWeb.suchishoili.DAO.SteadFastResponseDAO;
+import com.example.suchishoiliWeb.suchishoili.DAO.SteadFastResponseDao;
 import com.example.suchishoiliWeb.suchishoili.fixedVariables.SteadFastAuth;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,12 +24,12 @@ public class SteadFastService {
         return httpHeader;
     }
 
-    public SteadFastResponseDAO order_create(String orderUniqueID, String recipient_name, String recipient_phone,
+    public SteadFastResponseDao order_create(String orderUniqueID, String recipient_name, String recipient_phone,
                                              String recipient_address, int cod_amount, String note) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders header = this.httpHeaders();
 
-        OrderDaoForSteadFast steadFast = new OrderDaoForSteadFast();
+        SteadFastOrderDao steadFast = new SteadFastOrderDao();
         steadFast.setInvoice(orderUniqueID);
         steadFast.setRecipient_name(recipient_name);
         steadFast.setRecipient_phone(recipient_phone);
@@ -47,7 +47,7 @@ public class SteadFastService {
                         String.class);
         Map<String, String> steadFastMap =
                 mapper.readValue(responseFromSteadfast.getBody(), Map.class);
-        SteadFastResponseDAO steadFastResponseDAO = new SteadFastResponseDAO();
+        SteadFastResponseDao steadFastResponseDAO = new SteadFastResponseDao();
         SteadFastConsignmentDao consignmentDao = mapper.convertValue(steadFastMap.get(
                 "consignment"), SteadFastConsignmentDao.class);
         steadFastResponseDAO.setStatus(Integer.parseInt(String.valueOf(steadFastMap.get("status"))));
@@ -57,7 +57,7 @@ public class SteadFastService {
     }
 
     //this invoiceID is the orderUniqueID of each each order
-    public SteadFastResponseDAO checking_delivery_status(String invoiceID) throws JsonProcessingException {
+    public SteadFastResponseDao checking_delivery_status(String invoiceID) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders header = this.httpHeaders();
         HttpEntity<String> requestForsteadFast = new HttpEntity<>(header);
@@ -68,12 +68,12 @@ public class SteadFastService {
         ObjectMapper mapper = new ObjectMapper();
         Map<String, String> steadFastMap =
                 mapper.readValue(responseFromSteadfast.getBody(), Map.class);
-        SteadFastResponseDAO responseDAO = mapper.convertValue(steadFastMap,
-                SteadFastResponseDAO.class);
+        SteadFastResponseDao responseDAO = mapper.convertValue(steadFastMap,
+                SteadFastResponseDao.class);
         return responseDAO;
     }
 
-    public SteadFastResponseDAO get_balance() throws JsonProcessingException {
+    public SteadFastResponseDao get_balance() throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders header = this.httpHeaders();
         HttpEntity<String> requestForsteadFast = new HttpEntity<>(header);
@@ -83,8 +83,8 @@ public class SteadFastService {
         ObjectMapper mapper = new ObjectMapper();
         Map<String, String> steadFastMap =
                 mapper.readValue(responseFromSteadfast.getBody(), Map.class);
-        SteadFastResponseDAO responseDAO = mapper.convertValue(steadFastMap,
-                SteadFastResponseDAO.class);
+        SteadFastResponseDao responseDAO = mapper.convertValue(steadFastMap,
+                SteadFastResponseDao.class);
         return responseDAO;
     }
 }

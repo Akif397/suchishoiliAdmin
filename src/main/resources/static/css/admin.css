@@ -31,7 +31,6 @@ body {
 .admin_dashboard {
     grid-area: admin_dashboard;
     text-decoration: none;
-    color: white;
     font-family: 'Poppins', sans-serif;
     justify-self: center;
     align-self: center;

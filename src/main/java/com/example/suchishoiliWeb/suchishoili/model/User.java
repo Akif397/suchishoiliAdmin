@@ -21,7 +21,7 @@ public class User {
 	
 	@Column(nullable = false, length = 100)
 	private String name;
-	
+
 	@Column(nullable = true, length = 100)
 	private String email;
 	
